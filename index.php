@@ -30,13 +30,37 @@ require "includes/funcionesClientes.php";
 	<style>
 		.boxgridMenu {
 			float: left;
-			height: 35px;
+			height: 40px;
+			padding-top:5px;
+			padding-bottom:7px;
 			margin: 10px;
 			overflow: hidden;
 			position: relative;
 			width: 170px;
+			background-color:#CCC;
+			/*para Firefox*/
+			-moz-border-radius: 6px 6px 6px 6px;
+			/*para Safari y Chrome*/
+			-webkit-border-radius: 6px 6px 6px 6px;
+			/* para Opera */
+			border-radius: 6px;
+			background-color: #C9EEFC;
 		}
 		
+		.boxgridMenu > a {
+			text-align:center;
+			color:#FFF;
+		}
+		
+		.boxgridMenu .menuItem3 {
+			/*para Firefox*/
+			-moz-border-radius: 5px 5px 5px 5px;
+			/*para Safari y Chrome*/
+			-webkit-border-radius: 5px 5px 5px 5px;
+			/* para Opera */
+			border-radius: 3px;
+			width:100%;
+		}
 		
 		.boxgridSubInfo {
 			float: left;
@@ -63,6 +87,10 @@ require "includes/funcionesClientes.php";
 		
 		.boxgridSubInfo h4 {
 			padding-left:10px;
+		}
+		.active {
+			color:#FFF;
+			background-color:#900;
 		}
 		
 	
@@ -193,27 +221,27 @@ require "includes/funcionesClientes.php";
 
 <div>
 
-	<div class="boxgridMenu" style="margin-left:17%;">
+	<div class="boxgridMenu active" style="margin-left:17%;">
 <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000; font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold; text-align:left; color: #AAA; text-shadow:1px 1px 1px white;">1</div>-->
-        <div style="text-align:left; font-family: Bebas; font-size:1.5em;" id="menuItem1"><a href="" style="text-align:left;">Home</a></div>
+        <div style=" font-family: Bebas; font-size:1.5em;" id="menuItem1" class="menuItem3"><a href="" class="active" style="text-align:left;">Home</a></div>
     </div>
     <div class="boxgridMenu">
 <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000;font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold;text-align:left; color:#AAA; text-shadow:1px 1px 1px white;">2</div>-->
-    	<div style="text-align:left; font-family: Bebas; font-size:1.5em;" id="menuItem2"><a href="" style="text-align:left;">Servicios</a></div>
+    	<div style=" font-family: Bebas; font-size:1.5em;" id="menuItem2" class="menuItem3"><a href="" style="text-align:left;">Servicios</a></div>
     </div>
     <div class="boxgridMenu">
 <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000;font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold;text-align:left; color:#AAA; text-shadow:1px 1px 1px white;">3</div>-->
-    	<div style="text-align:left; font-family: Bebas; font-size:1.5em;" id="menuItem3"><a href="">Herramientas</a></div>
+    	<div style="font-family: Bebas; font-size:1.5em;" id="menuItem3" class="menuItem3"><a href="">Herramientas</a></div>
     </div>
     <div class="boxgridMenu">
 <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000;font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold;text-align:left; color:#AAA; text-shadow:1px 1px 1px white;">4</div>-->
-    	<div style="text-align:left; font-family: Bebas; font-size:1.5em;" id="menuItem4"><a href="" style="text-align:left;">Contacto</a></div>
+    	<div style="font-family: Bebas; font-size:1.5em;" id="menuItem4" class="menuItem3"><a href="" style="text-align:left;">Contacto</a></div>
     </div>
 
 </div>
 
 
-<div style="height:53px;">
+<div style="height:59px;">
 
 </div>
 
@@ -233,18 +261,30 @@ require "includes/funcionesClientes.php";
 
 	<div id="menu2">
     	<h3>La totalidad de los servicios ofrecidos, fueron <strong>cuidadosamente diseñados</strong> para atender las necesidades de las PyMEs y microemprendimientos.</h3>
-        <div align="center" style="padding-left:18%;">
-        <div id="menu3int" align="center">
-        	<a href=""><span class="glyphicon glyphicon glyphicon-link"> </span>Gestión Empresarial</a>
-            <a href=""><span class="glyphicon glyphicon glyphicon-link"> </span>Outsourcing</a>
-            <a href=""><span class="glyphicon glyphicon glyphicon-link"> </span>Impuestos</a>
-            <a href=""><span class="glyphicon glyphicon glyphicon-link"> </span>Auditoria</a>
-        </div>
-        <div id="menu3int" align="center">
-        	<a href=""><span class="glyphicon glyphicon glyphicon-link"> </span>Gestión Documental</a>
-            <a href=""><span class="glyphicon glyphicon glyphicon-link"> </span>Imagen Corporativa</a>
-            <a href=""><span class="glyphicon glyphicon glyphicon-link"> </span>Desarrollo Tecnológico</a>
-        </div>
+        <div align="center" style="padding-left:2%;">
+            <!--<div id="menu3int" align="center">
+                <a href="">Gestión Empresarial</a>
+                <a href="">Outsourcing</a>
+                <a href="">Impuestos</a>
+                <a href="">Auditoria</a>
+                <a href="">Gestión Documental</a>
+                <a href="">Imagen Corporativa</a>
+                <a href="" class="ultimo">Desarrollo Tecnológico</a>
+            </div>-->
+            <!--<div id="menu3int" align="center">
+                <a href="">Gestión Documental</a>
+                <a href="">Imagen Corporativa</a>
+                <a href="">Desarrollo Tecnológico</a>
+            </div>-->
+            <ul id="nav">
+					<li><a href="#">Gestión Empresarial</a></li>
+	                <li><a href="#">Outsourcing</a></li>
+	                <li><a href="#">Impuestos</a></li>
+	                <li><a href="#">Auditoria</a></li>
+	                <li><a href="#">Gestión Documental</a></li>
+                    <li><a href="#">Imagen Corporativa</a></li>
+	                <li><a href="#">Desarrollo Tecnológico</a></li>
+	            </ul>
         </div>
     </div>
     
