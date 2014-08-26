@@ -217,6 +217,7 @@ require "includes/funcionesClientes.php";
     	<h3 style="margin-left:-25px;"><strong>DM</strong> & Asociados</h3>
     	<h4 style="margin-left:-25px; color: #096; font-family:Tahoma, Geneva, sans-serif;">Consultora Integral</h4>
         <div style="margin-left:70%; margin-top:-60px;"><img src="imagenes/face.png"></div>
+        <div style="margin-left:55%; margin-top:-50px;"><img src="imagenes/loginimg.png" width="50" height="50"></div>
     </div>
     
 <div style="clear: both;"/>
@@ -290,13 +291,13 @@ require "includes/funcionesClientes.php";
                 <a href="">Desarrollo Tecnológico</a>
             </div>-->
             <ul id="nav">
-					<li><a href="#">Gestión Empresarial</a></li>
-	                <li><a href="#">Outsourcing</a></li>
-	                <li><a href="#">Impuestos</a></li>
-	                <li><a href="#">Auditoria</a></li>
-	                <li><a href="#">Gestión Documental</a></li>
-                    <li><a href="#">Imagen Corporativa</a></li>
-	                <li><a href="#">Desarrollo Tecnológico</a></li>
+					<li><a href="vistas/servicios/">Gestión Empresarial</a></li>
+	                <li><a href="vistas/servicios/">Outsourcing</a></li>
+	                <li><a href="vistas/servicios/">Impuestos</a></li>
+	                <li><a href="vistas/servicios/">Auditoria</a></li>
+	                <li><a href="vistas/servicios/">Gestión Documental</a></li>
+                    <li><a href="vistas/servicios/">Imagen Corporativa</a></li>
+	                <li><a href="vistas/servicios/">Desarrollo Tecnológico</a></li>
 	            </ul>
         </div>
     </div>
