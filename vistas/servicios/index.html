@@ -8,8 +8,8 @@
 
 <link href="../../css/estilo1.css" rel="stylesheet" type="text/css">
     
-    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script type="text/javascript" src="../../js/jquery-1.9.1.js"></script>
+    <!--<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
         
         
 	<!-- Latest compiled and minified CSS -->
@@ -92,6 +92,38 @@
 	
 	</style>
     
+    <script type="text/javascript">
+		$( document ).ready(function() {
+			// Handler for .ready() called.
+			$('#servM1').click(function() {
+					$('#serv1').hide();
+					$('#serv2').show();
+					$('#serv3').hide();
+					$('#serv4').hide();
+					$('#distancia').css('height', '600px');
+			});
+			
+			
+			$('#servM3').click(function() {
+					$('#serv1').hide();
+					$('#serv2').hide();
+					$('#serv3').show();
+					$('#serv4').hide();
+					$('#distancia').css('height', '900px');
+			});
+			
+			
+			$('#servM6').click(function() {
+					$('#serv1').hide();
+					$('#serv2').hide();
+					$('#serv3').hide();
+					$('#serv4').show();
+					$('#distancia').css('height', '800px');
+			});
+			
+		});
+	
+	</script>
 </head>
 
 <body>
@@ -186,67 +218,173 @@
 
 <br>
 
-<div id="izq">
-
-<h3 style=" width:100%; border-bottom:1px solid #999; margin-bottom:25px;">Acerca de Nosotros</h3>
-<p>La totalidad de los servicios ofrecidos, fueron <strong>cuidadosamente diseñados</strong> para atender las necesidades de PyMEs y microemprendimietos.</p>
-<p>Cada uno de ellos tiene por objetivo <strong>elevar los estándares de rendimiento</strong> de estas organizaciones particulares de cada una de ellas.</p>
-
-<div style="height:1px; width:100%; border-bottom:1px dotted #999;margin-bottom:10px;padding-top:12px;"></div>
-<p class="menuServicios">Gestión Empresarial (Equipos de Acción)</p>
-<p class="menuServicios">Outsourcing</p>
-<p class="menuServicios">Impuestos</p>
-<p class="menuServicios">Auditoria</p>
-<p class="menuServicios">Gestion Documental</p>
-<p class="menuServicios">Imagen Corporativa</p>
-<p class="menuServicios">Desarrollo Tecnológico</p> 
-
-
-</div>
+    <div id="izq">
+    
+        <h3 style=" width:100%; border-bottom:1px solid #999; margin-bottom:25px;">Acerca de Nosotros</h3>
+        <p>La totalidad de los servicios ofrecidos, fueron <strong>cuidadosamente diseñados</strong> para atender las necesidades de PyMEs y microemprendimietos.</p>
+        <p>Cada uno de ellos tiene por objetivo <strong>elevar los estándares de rendimiento</strong> de estas organizaciones particulares de cada una de ellas.</p>
+        
+        <div style="height:1px; width:100%; border-bottom:1px dotted #999;margin-bottom:10px;padding-top:12px;"></div>
+        <p class="menuServicios" id="servM1">Gestión Empresarial (Equipos de Acción)</p>
+        <p class="menuServicios" id="servM2">Outsourcing</p>
+        <p class="menuServicios" id="servM3">Impuestos</p>
+        <p class="menuServicios" id="servM4">Auditoria</p>
+        <p class="menuServicios" id="servM5">Gestion Documental</p>
+        <p class="menuServicios" id="servM6">Imagen Corporativa</p>
+        <p class="menuServicios" id="servM7">Desarrollo Tecnológico</p> 
+    
+    
+    </div>
 
 <div id="der">
-<p>Existe una amplia variedad de servicios relacionados con la <span style="color:#F00; font-weight:bold;">liquidación de sueldos y la gestión</span> de los mismos que pueden brindar tranquilidad en cuanto a cumplimiento de la normativa vigente y permite tomar decisiones basadas en análisis, proyecciones y costos derivados de la nómina de personal.</p>
 
-<img src="../../imagenes/moneda.jpg" style="float:right;">
+<div id="serv1"><!-- primer serv1 serv1 -->
+        <p>Existe una amplia variedad de servicios relacionados con la <span style="color:#F00; font-weight:bold;">liquidación de sueldos y la gestión</span> de los mismos que pueden brindar tranquilidad en cuanto a cumplimiento de la normativa vigente y permite tomar decisiones basadas en análisis, proyecciones y costos derivados de la nómina de personal.</p>
+        
+        <img src="../../imagenes/moneda.jpg" style="float:right;">
+        
+        <p>La contratación de este tipo de servicios permite concentrar los recursos necesarios en el objeto de la empresa.</p>
+            <ul>
+                <li>Administración de Nóminas</li>
+                <li>Proceso de Liquidación</li>
+                <li>Generación de declaraciones juradas</li>
+                <li>Declaración Jurada anual de Impuesto a las Ganancias</li>
+                <li>Inscripción de Nómina</li>
+                <li>Regularizaciones</li>
+            </ul>
+        
+        <div style="height:1px; background-color: #333; width:100%; margin-top:20px; margin-bottom:20px;"></div>
+        
+        
+        
+        
+        <img src="../../imagenes/inform.jpg" width="200" height="133" style="float:left; margin-top:10px; margin-right:15px; padding:5px; border:1px solid #acacac; background-color:#FFF;-webkit-box-shadow: 2px 2px 5px #999;
+                    box-shadow: 2px 2px 5px #999;
+                    -moz-box-shadow: 2px 2px 5px #999;
+                    filter: shadow(color=#999999, direction=135, strength=2);">
+        <p style="padding-top:7px;">A los fines de tomar decisiones que permitan obtener el éxito, los empresarios deben contar con una gran cantidad de información, disminuyendo de este modo la posibilidad de error, por ello es fundamental contar oportunamente con la información que brinde respaldo a las decisiones.</p>
+        
+        <p style="margin-top:5px;">A través de un rediseño de procesos, pudimos aumentar la accesibilidad de las PyMEs a este tipo de herramientas.</p>
+        <br>
+            <ul>
+                <li>Estudios económicos y Financieros</li>
+                <li>Reingenieria de procesos administrativos</li>
+                <li>Sistema de información y comunicaciones</li>
+                <li>Capacitación en organización y sistemas</li>
+                <li>Cuadros de Mando</li>
+            </ul>
+</div><!-- fin del serv1 -->   
 
-<p>La contratación de este tipo de servicios permite concentrar los recursos necesarios en el objeto de la empresa.</p>
-    <ul>
-        <li>Administración de Nóminas</li>
-        <li>Proceso de Liquidación</li>
-        <li>Generación de declaraciones juradas</li>
-        <li>Declaración Jurada anual de Impuesto a las Ganancias</li>
-        <li>Inscripción de Nómina</li>
-        <li>Regularizaciones</li>
-    </ul>
 
-<div style="height:1px; background-color: #333; width:100%; margin-top:20px; margin-bottom:20px;"></div>
+<div id="serv2" style="display:none;"><!-- segundo serv1 serv2 -->
+
+		<h3>Gestión Empresarial (Equipos de Acción)</h3>
+        <p>Nuestra razón de ser es <strong>poner al alcance del cliente un servicio de alta calidad sin provocar con ello la inaccesibilidad al mismo.</strong></p>
+<p>Por ello, hemos adoptado una metodología de trabajo no habitual, consiste en la conformación de equipos de tareas de acuerdo a las características particulares de cada proyecto, eliminando así, los costos de recursos innecesarios.</p>
+<p>Entendemos este proceder como una <strong>manera diferente de solucionar problemas.</strong></p>
+		
+        <img src="../../imagenes/gestionempresarial.jpg" width="750" height="320" style="margin-top:10px; margin-right:15px; padding:5px; border:1px solid #acacac; background-color:#FFF;-webkit-box-shadow: 2px 2px 5px #999;
+                    box-shadow: 2px 2px 5px #999;
+                    -moz-box-shadow: 2px 2px 5px #999;
+                    filter: shadow(color=#999999, direction=135, strength=2);">
+
+ </div><!-- fin del serv2 --> 
+
+
+<div id="serv3" style="display:none;"><!-- tercer serv1 serv3 -->
+
+		<h3>Impuestos</h3>
+        
+
+		<h5>El asesoramiento impositivo tiene como principal objetivo el cumplimiento de la normativa vigente en cada ámbito de desempeño.</h5>
+
+		<h5>Por otro lado, lejos de ser una mera herramienta de cumplimiento, un asesoramiento permanente en esta materia, brinda información de vital importancia al momento de proyectar la vida de la empresa y de afrontar la toma de decisiones.</h5>
+
+		<h5>De este modo, desarrollamos una amplia gama de posibilidades relacionadas con el área impositiva.</h5>
+		
+        <br>
+        <img src="../../imagenes/impuestos.jpg" style="float:left; margin-top:10px; margin-right:15px; padding:5px; border:1px solid #acacac; background-color:#FFF;-webkit-box-shadow: 2px 2px 5px #999;
+                    box-shadow: 2px 2px 5px #999;
+                    -moz-box-shadow: 2px 2px 5px #999;
+                    filter: shadow(color=#999999, direction=135, strength=2);">
+                    
+        
+
+        <p style=" padding-top:10px;">La <strong>Planificación Tributaria</strong> permite incrementar los niveles de utilidad a través de la aplicación de operaciones predefinidas que <span style="font-style:italic;">permiten disminuir la carga tributaria</span> sin infringir disposiciones legales.</p>
+        
+        <p>En este sentido se le brinda a las empresas alternativas emergentes de la interpretación de la normativa vigente permitiendo la implementación de estrategias tributarias orientadas a optimizar los resultados.</p>
+		
+        
+
+        <p>Terciarización de actividades impositivas.</p>
+        
+        <p>La delegacion de estas tareas tecnicas otorga multiples ventajas para el empresario.</p>
+        
+        <p>Por un lado, permite asignar</p>
+        
+        
+        
+
+		<p>La <strong>capacitación en materia impositiva</strong> tiene como objetivo desarrollar las capacidades técnicas del personal de nuestros clientes a través de <span style="font-style:italic;">programas de capacitación elaborados a la medida y enfocados a las necesidades específicas</span> de cada cliente.</p>
+        
+        <p>Confección de declaraciones juradas de diferentes niveles de gobierno, respetando la normativa vigente, contemplando permanentes actualizaciones de las mismas con el fin de evitar infringirlas.</p>
+        
+        <p>Ante la intervención por parte de los diferentes organismos de contralor, ofrecemos la posibilidad de <strong>planear e implementar diferentes estrategias</strong> de fundamentaron, apoyadas en la amplia capacitación del personal a cargo, que permitan cumplimentar con la totalidad de los requisitos exigidos sobrellevando estos procesos de la mejor manera posible.</p>
+        
+        <p>Desarrollo e implementación de diferentes sistemas contables dentro de la organización.</p>
+
+		<p>El desarrollo de estos sistemas permite una correcta aplicacion de la legislacion de la materia evitando de esta manera caer en infracciones que traigan como consecuencia</p>
 
 
 
 
-<img src="../../imagenes/inform.jpg" width="200" height="133" style="float:left; margin-top:10px; margin-right:15px; padding:5px; border:1px solid #acacac; background-color:#FFF;-webkit-box-shadow: 2px 2px 5px #999;
-			box-shadow: 2px 2px 5px #999;
-		    -moz-box-shadow: 2px 2px 5px #999;
-		    filter: shadow(color=#999999, direction=135, strength=2);">
-<p style="padding-top:7px;">A los fines de tomar decisiones que permitan obtener el éxito, los empresarios deben contar con una gran cantidad de información, disminuyendo de este modo la posibilidad de error, por ello es fundamental contar oportunamente con la información que brinde respaldo a las decisiones.</p>
 
-<p style="margin-top:5px;">A través de un rediseño de procesos, pudimos aumentar la accesibilidad de las PyMEs a este tipo de herramientas.</p>
-<br>
-    <ul>
-        <li>Estudios económicos y Financieros</li>
-        <li>Reingenieria de procesos administrativos</li>
-        <li>Sistema de información y comunicaciones</li>
-        <li>Capacitación en organización y sistemas</li>
-        <li>Cuadros de Mando</li>
-    </ul>
+
+ </div><!-- fin del serv3 --> 
+
+
+
+
+ <div id="serv4" style="display:none;"><!-- cuarto serv1 serv4 -->
+
+
+  
+ 		
+        <h3>Imagen Coorporativa</h3>
+        
+        <p>La identidad corporativa es la representación o imagen que un espectador tiene de una organización o de una empresa, no se trata sólo del logotipo de la empresa, la identidad corporativa es la imagen que la empresa transmite al exterior.</p>
+
+
+		<p>Hoy más que nunca, las organizaciones necesitan realizar acciones que contribuyan a crear una imagen de ellas atractiva, moderna y atrayente a la vez que socialmente comprometida, la responsabilidad social corporativa es también un elemento importante a destacar.</p>
+
+
+		<p>La proyección de la imagen de una empresa se materializa además de por su nombre (naming) y sus elementos gráficos y visuales (logotipo) a través de las personas que la representan, de sus cualidades, actitudes, experiencia y manera de actuar.</p>
+
+		<img src="../../imagenes/imagencoorporativa.jpg" style="float:left; margin-top:10px; margin-right:15px; padding:5px; border:1px solid #acacac; background-color:#FFF;-webkit-box-shadow: 2px 2px 5px #999;
+                    box-shadow: 2px 2px 5px #999;
+                    -moz-box-shadow: 2px 2px 5px #999;
+                    filter: shadow(color=#999999, direction=135, strength=2);">
+                    
+		<p>La relación con proveedores y clientes, con los medios de comunicación, con las instituciones públicas, los actos organizados ya sean de tipo comercial, institucional, académico, social o cultural deben ser llevados con rigurosidad y profesionalidad y siguiendo un procedimiento de calidad que se determine y que formará parte también de la identidad corporativa de la organización.</p>
+
+
+		<p>En un mundo cada vez más competitivo, sólo las marcas fuertes sobrevivirán, una buena gestión de la marca es clave del éxito de una organización. Una marca fuerte permitirá evitar entrar en la guerra por el precio o el producto o servicio con la consiguiente merma de calidad.</p>
+
+
+		<p>La construcción de una marca es muy compleja y son numerosas las variables que influyen y diversos los aspectos que configuran la percepción de la misma, sin embargo la propuesta de marca de cara al cliente debe ser clara y sencilla, se requiere un esfuerzo de síntesis, enfoque y coherencia.</p>
+
+
+		<p>En nuestro estudio de diseño mediante una amplia gama de servicios, contribuimos a crear y difundir de la manera más atractiva posible la imagen de empresa de tu organización o de tu marca personal como una parte fundamental de la identidad corporativa de la misma.</p>
+ 	
     
-
+    </div><!-- fin del serv4 -->
+ 
 </div>
 
 
 
 
-<div style="height:700px;"></div>
+<div style="height:700px;" id="distancia"></div>
 
 
 

@@ -497,6 +497,7 @@ input[type="text"]:focus {
 	color: #fff;
 }
 
+
 #der {
 	width:65%;
 	float:right;
@@ -505,7 +506,20 @@ input[type="text"]:focus {
 	padding-left:19px;
 }
 
-#der > ul li {
+#der p {
+	text-indent: 1.5em;
+	line-height:22px;
+}
+
+#der h5 {
+	font-family: "MS Serif", "New York", serif;
+	text-indent:1.5em;
+	white-space:3px;
+	line-height:20px;
+	color: #666;
+}
+
+#serv1 > ul li {
 	list-style-image: url(../imagenes/iconos/4.gif);
 	padding-left:3px;
 	padding-bottom:2px;
