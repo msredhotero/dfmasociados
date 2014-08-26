@@ -469,14 +469,50 @@ input[type="text"]:focus {
 
 #izq {
 	width:33%;
-	border-right:1px solid #333;
 	float:left;
 	padding: 10px 20px 20px 10px;
 	padding-left:50px;
+}
+
+.menuServicios {
+	font-weight:bold;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:1.1em;
+	width:100%;
+	border-bottom:1px dotted #999;
+	padding-bottom:12px;
+	padding-top:12px;
+	margin-top:-10px;
+	-webkit-transition:all 0.6s ease-out;  /* Chrome y Safari */
+  -o-transition:all 0.6s ease-out;  /* Opera */
+  -moz-transition:all 0.6s ease-out;  /* Mozilla Firefox */
+  -ms-transition:all 0.6s ease-out;   /* Internet Explorer */
+  transition:all 0.6s ease-out;  /* W3C */
+}
+
+.menuServicios:hover {
+	cursor:pointer;
+	background-color: #FF666A;
+	padding-left:24px;
+	color: #fff;
 }
 
 #der {
 	width:65%;
 	float:right;
 	padding: 10px 20px 20px 10px;
+	border-left:1px solid #a3a3a3;
+	padding-left:19px;
 }
+
+#der > ul li {
+	list-style-image: url(../imagenes/iconos/4.gif);
+	padding-left:3px;
+	padding-bottom:2px;
+	padding-top:3px;
+	font-family:Verdana, Geneva, sans-serif;
+	color: #333;
+	font-weight:bold;
+}
+
+
