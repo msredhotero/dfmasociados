@@ -121,9 +121,24 @@
 					$('#distancia').css('height', '800px');
 			});
 			
+			$('#menuItem4').click('click', function(e) { 
+			  // con esto, impedimos que se ejecute (más información)
+			  e.preventDefault();
+			  // leemos el atributo href de la etiqueta que es el ID a donde queremos ir
+			  var adonde = $('#formContacto');
+			  // guardamos su posición en la página (más información)
+			  var posicion_donde = $(adonde).offset();
+			  // y calculamos la distancia entre donde estamos y donde queremos ir
+			  var distancia = posicion_donde.top;
+			  // por último, nos movemoss usando una animación (más información)
+			  $('body,html').animate({scrollTop: distancia}, 500);
+			});
+			
 		});
 	
 	</script>
+    
+
 </head>
 
 <body>
@@ -162,7 +177,7 @@
                 </div>
                 <div class="boxgridMenu">
             <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000;font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold;text-align:left; color:#AAA; text-shadow:1px 1px 1px white;">3</div>-->
-                    <div style="font-family: Bebas; font-size:1.5em;" id="menuItem3" class="menuItem3"><a href="">Herramientas</a></div>
+                    <div style="font-family: Bebas; font-size:1.5em;" id="menuItem3" class="menuItem3"><a href="../herramientas/">Herramientas</a></div>
                 </div>
                 <div class="boxgridMenu">
             <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000;font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold;text-align:left; color:#AAA; text-shadow:1px 1px 1px white;">4</div>-->
@@ -425,7 +440,7 @@
         </div>
         
         <div class="container" style="width:900px; color:#FFF;">
-        <form role="form">
+        <form role="form" id="formContacto">
             <div class="row" align="left">
                 <h3 style="padding-left:15px;">Contacto</h3>
             </div>

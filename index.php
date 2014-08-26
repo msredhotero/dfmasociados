@@ -176,6 +176,19 @@ require "includes/funcionesClientes.php";
 				$("#menu2").hide();
 				$("#menu3").hide();
 			});
+			
+			$('#menuItem4').click('click', function(e) { 
+			  // con esto, impedimos que se ejecute (mÃ¡s informaciÃ³n)
+			  e.preventDefault();
+			  // leemos el atributo href de la etiqueta que es el ID a donde queremos ir
+			  var adonde = $('#formContacto');
+			  // guardamos su posiciÃ³n en la pÃ¡gina (mÃ¡s informaciÃ³n)
+			  var posicion_donde = $(adonde).offset();
+			  // y calculamos la distancia entre donde estamos y donde queremos ir
+			  var distancia = posicion_donde.top;
+			  // por Ãºltimo, nos movemoss usando una animaciÃ³n (mÃ¡s informaciÃ³n)
+			  $('body,html').animate({scrollTop: distancia}, 500);
+			});
 		});
 	
 	</script>
@@ -396,7 +409,7 @@ require "includes/funcionesClientes.php";
 </div>
 
 <div class="container" style="width:900px; color:#FFF;">
-<form role="form">
+<form role="form" id="formContacto">
 	<div class="row" align="left">
     	<h3 style="padding-left:15px;">Contacto</h3>
     </div>
