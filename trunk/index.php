@@ -231,7 +231,7 @@ require "includes/funcionesClientes.php";
     </div>
     <div class="boxgridMenu">
 <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000;font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold;text-align:left; color:#AAA; text-shadow:1px 1px 1px white;">3</div>-->
-    	<div style="font-family: Bebas; font-size:1.5em;" id="menuItem3" class="menuItem3"><a href="">Herramientas</a></div>
+    	<div style="font-family: Bebas; font-size:1.5em;" id="menuItem3" class="menuItem3"><a href="vistas/herramientas/">Herramientas</a></div>
     </div>
     <div class="boxgridMenu">
 <!--    	<div style="width:100%; height:33%; border-bottom:1px solid #000;font-family:Verdana, Geneva, sans-serif; font-size:10px; font-weight:bold;text-align:left; color:#AAA; text-shadow:1px 1px 1px white;">4</div>-->
