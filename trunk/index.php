@@ -391,7 +391,7 @@ require "includes/funcionesClientes.php";
 <img src="imagenes/icon-email.png">
 </td>
 <td width="450" valign="middle" align="left">
-<h3 style="color:#FFF;">Reciba nuestras ofertas de servicios</h3>
+<h3 style="color:#FFF;">Reciba nuestras novedades</h3>
 </td>
 <td align="center" width="350" valign="middle">
 <input type="text" name="email" class="style-4" placeholder="Ingrese su e-mail">
