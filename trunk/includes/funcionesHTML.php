@@ -22,7 +22,11 @@ function enviarMail($nombre,$mensaje,$email,$telefono)
 	{
 		$error = $error." Falta el email.";
 	}
-
+	
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    	$error = $error." Esta dirección de correo ($email) es inválida.";
+	}
+	
 	if (strlen($error) < 1)
 	{
 		$sql = "insert into dbcontactos(idcontacto,nombre,mensaje,email,fecha,telefono) values ('','".$nombre."','".$mensaje."','".$email."','".date('Y-m-d H:i:s')."', '".$telefono."')";
