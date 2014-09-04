@@ -176,8 +176,8 @@ function enviarMail($ServiciosFunciones)
 	$nombre = $_POST['nombre'];
 	$mensaje = $_POST['mensaje'];
 	$email = $_POST['email'];
-
-	echo $ServiciosFunciones->enviarMail($nombre,$mensaje,$email);
+	$telefono = $_POST['telefono'];
+	echo $ServiciosFunciones->enviarMail($nombre,$mensaje,$email,$telefono);
 }
 
 
