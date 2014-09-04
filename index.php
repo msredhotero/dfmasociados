@@ -488,7 +488,7 @@ require "includes/funcionesClientes.php";
 			$(".alert").removeClass("alert-success");
 			$(".alert").removeClass("alert-danger");
 			$(".alert").addClass("alert-warning");
-			$(".alert").html('<strong>Importante!</strong> Es necesario completar todos los campos para poder enviar el mensaje. Muchas Gracias.');
+			$(".alert").html('<strong>Importante!</strong> Es necesario completar todos los campos para poder enviar el mensaje, menos el Teléfono. Muchas Gracias.');
 		});
 			
 		$("#enviarMensaje").click(function(event){
