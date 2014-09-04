@@ -244,6 +244,7 @@
         <p class="menuServicios" id="servM2">Outsourcing</p>
         <p class="menuServicios" id="servM3">Impuestos</p>
         <p class="menuServicios" id="servM4">Auditoria</p>
+        <p class="menuServicios" id="servM5">Gestion Documental</p>
         <p class="menuServicios" id="servM6">Imagen Corporativa</p>
         <p class="menuServicios" id="servM7">Desarrollo Tecnológico</p> 
     
@@ -420,13 +421,13 @@
         <img src="../../imagenes/icon-email.png">
         </td>
         <td width="450" valign="middle" align="left">
-        <h3 style="color:#FFF;">Reciba nuestras novedades</h3>
+        <h3 style="color:#FFF;">Reciba nuestras ofertas de servicios</h3>
         </td>
         <td align="center" width="350" valign="middle">
         <input type="text" name="email" class="style-4" placeholder="Ingrese su e-mail">
         </td>
         <td align="center" width="50">
-        <input type="button" name="enviarnoticia" id="enviarnoticia" style="background:url(../../imagenes/Logo_Telegram.png) no-repeat; height:43px; width:43px; border:none;">
+        <input type="button" name="enviarnoticia" id="enviarnoticia" style="background:url(imagenes/Logo_Telegram.png) no-repeat; height:43px; width:43px; border:none;">
         </td>
         </tr>
         </table>

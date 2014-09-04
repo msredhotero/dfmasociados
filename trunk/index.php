@@ -275,7 +275,7 @@ require "includes/funcionesClientes.php";
 
 	<div id="menu2">
     	<h3>La totalidad de los servicios ofrecidos, fueron <strong>cuidadosamente diseñados</strong> para atender las necesidades de las PyMEs y microemprendimientos.</h3>
-        <div align="center" style="padding-left:2%;">
+        <div align="center" style="padding-left:8%;">
             <!--<div id="menu3int" align="center">
                 <a href="">Gestión Empresarial</a>
                 <a href="">Outsourcing</a>
@@ -295,7 +295,6 @@ require "includes/funcionesClientes.php";
 	                <li><a href="vistas/servicios/">Outsourcing</a></li>
 	                <li><a href="vistas/servicios/">Impuestos</a></li>
 	                <li><a href="vistas/servicios/">Auditoria</a></li>
-	                <li><a href="vistas/servicios/">Gestión Documental</a></li>
                     <li><a href="vistas/servicios/">Imagen Corporativa</a></li>
 	                <li><a href="vistas/servicios/">Desarrollo Tecnológico</a></li>
 	            </ul>
@@ -378,7 +377,7 @@ require "includes/funcionesClientes.php";
 
 <!--<div id="sobreDiv">
 </div>-->
-<div style="background-color:#8B0000; height:500px;">
+<div style="background-color:#8B0000; height:600px;">
 <div align="center">
 <br>
 <br>
@@ -437,12 +436,19 @@ require "includes/funcionesClientes.php";
 	</div>
     
     <div class="row">
-    	<textarea class="col-md-6" rows="3" style="padding:10px; width:420px; margin-left:15px;"></textarea>
+    	<textarea id="mensaje" class="col-md-6" rows="3" style="padding:10px; width:420px; margin-left:15px;"></textarea>
     </div>
+    
+    <div class="row">
+    	<div id="loading"></div>
+        <br>
+    	<input id="enviarMensaje" type="button" class="col-md-6 btn btn-danger" rows="3" style="padding:10px; width:120px; margin-left:15px;" value="Enviar">
+    </div>
+    
 </form>
 
 
-<table width="300" border="0" cellpadding="0" cellspacing="0" style="float:right; margin-top:-250px;" height="300">
+<table width="300" border="0" cellpadding="0" cellspacing="0" style="float:right; margin-top:-300px;" height="300">
     <tr>
     	<td align="left">
         	<h3>Teléfonos</h3>
@@ -463,12 +469,68 @@ require "includes/funcionesClientes.php";
     </tr>
 </table>
 
-
+<div class="alert alert-warning" style="margin-top:50px; color:#000;">
+    	<strong>Importante!</strong>
+    	Es necesario completar todos los campos para poder enviar el mensaje, menos el Teléfono. Muchas Gracias.
+    </div>
+    
 </div>
 
 
 </div>
 
 </div>
+
+<script type="text/javascript">
+	$( document ).ready(function() {
+		
+		$("#nombreapellido,#mensaje,#exampleInputEmail1").click(function(event){
+			$(".alert").removeClass("alert-success");
+			$(".alert").removeClass("alert-danger");
+			$(".alert").addClass("alert-warning");
+			$(".alert").html('<strong>Importante!</strong> Es necesario completar todos los campos para poder enviar el mensaje. Muchas Gracias.');
+		});
+			
+		$("#enviarMensaje").click(function(event){
+			$.ajax({
+				data: {nombre: $("#nombreapellido").val(),
+					   mensaje: $("#mensaje").val(),
+					   email: $("#exampleInputEmail1").val(),
+					   telefono: $("#telefono").val(), 
+					   accion: 'enviarMail'},
+				url: 'ajax/ajax.php',
+				type: 'post',
+			beforeSend: function () {
+				$("#loading").html('<img src="imagenes/loading.gif" width="50" height="50" />');
+			},
+			success: function (response) {
+				$(".alert").removeClass("alert-warning");
+				$(".alert").html('');
+				if (response == '') {
+					$(".alert").addClass("alert-success");
+					$(".alert").html('<strong>Perfecto!</strong> Su mensaje ha sido enviado exitosamente. ');
+					$("#loading").html('');
+					$("#nombreapellido").val('');
+					$("#mensaje").val('');
+					$("#exampleInputEmail1").val('');
+					$("#telefono").val('');
+				} else {
+					$(".alert").addClass("alert-danger");
+					$(".alert").html('<strong>Error!</strong> '+response);
+					$("#loading").html('');
+				}
+			}
+			});
+		}); 
+		
+		$('#enviarMensaje').click(function() {
+			
+		});
+	});
+
+
+</script>
+
+
 </body>
 </html>

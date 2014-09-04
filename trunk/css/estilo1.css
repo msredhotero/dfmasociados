@@ -285,7 +285,7 @@ input[type="text"]:focus {
 	    margin-left: 1%;
 	    margin-right: 1%;
 	    position: relative;
-	    width: 98%;
+	    /*width: 85%;*/
 	}
 	#nav ul.subs {
 	    background-color: #FFFFFF;
@@ -296,7 +296,7 @@ input[type="text"]:focus {
 	    padding: 2%;
 	    position: absolute;
 	    top: 54px;
-	    width: 96%;
+	    /*width: 81%;*/
 	}
 	#nav > li {
 	    border-bottom: 5px solid transparent;

@@ -4,13 +4,13 @@ date_default_timezone_set('America/Buenos_Aires');
 
 class ServiciosHTML {
 
-function enviarMail($nombre,$mensaje,$email)
+function enviarMail($nombre,$mensaje,$email,$telefono)
 {
 	$error = "";
 
 	if (trim($nombre) == "")
 	{
-		$error = "Falta el nombre. ";
+		$error = "Falta el nombre y apellido. ";
 	}
 
 	if (trim($mensaje) == "")
@@ -25,7 +25,7 @@ function enviarMail($nombre,$mensaje,$email)
 
 	if (strlen($error) < 1)
 	{
-		$sql = "insert into dbcontactos(idcontacto,nombre,mensaje,email,fecha) values ('','".$nombre."','".$mensaje."','".$email."','".date('Y-m-d H:i:s')."')";
+		$sql = "insert into dbcontactos(idcontacto,nombre,mensaje,email,fecha,telefono) values ('','".$nombre."','".$mensaje."','".$email."','".date('Y-m-d H:i:s')."', '".$telefono."')";
 		$this->query($sql,1);	
 		return $error;
 	} else {
@@ -39,7 +39,7 @@ Function query($sql,$accion) {
 		
 		
 		$hostname = "localhost";
-		$database = "reycanguro";
+		$database = "dmasociados";
 		$username = "root";
 		$password = "";
 		/*
