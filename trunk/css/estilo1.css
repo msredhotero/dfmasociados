@@ -527,6 +527,7 @@ input[type="text"]:focus {
 	font-family:Verdana, Geneva, sans-serif;
 	color: #333;
 	font-weight:bold;
+	font-size:12px;
 }
 
 
