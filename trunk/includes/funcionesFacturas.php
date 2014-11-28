@@ -6,7 +6,14 @@ date_default_timezone_set('America/Buenos_Aires');
 class ServiciosFacturas {
 
 
-function insertarFactura($nrofactura,$fechacreacion,$usuacrea,$refformapago,$refcliente,$cancelada,$reftipoiva,$comentarios,$mes,$retencion,$otros,$percepcion,$refactividad,$exento,$gravado,$importe)
+function traerActividades() {
+	$sql		=	"select idactividad,actividad from tbactividad";
+	$res = $this->query($sql,0);
+
+return $res;
+}
+
+function insertarFactura($nrofactura,$fechacreacion,$usuacrea,$refformapago,$refcliente,$cancelada,$reftipoiva,$comentarios,$mes,$retencion,$otros,$percepcion,$refactividad,$exento,$gravado,$importe,$baseimponible)
 {
 $sql		=	"INSERT INTO dfmasociados.dbfacturas
 						(idfactura,
@@ -24,10 +31,11 @@ $sql		=	"INSERT INTO dfmasociados.dbfacturas
 						percepcion,
 						refactividad,
 						exento,
-						gravado)
+						gravado,
+						baseimponible)
 					VALUES
 						('',
-						'".$nrofactura."',
+						'".utf8_decode($nrofactura)."',
 						'".$fechacreacion."',
 						'".$usuacrea."',
 						".$refformapago.",
@@ -42,10 +50,29 @@ $sql		=	"INSERT INTO dfmasociados.dbfacturas
 						".$refactividad.",
 						".$exento.",
 						".$gravado.",
-						".$importe.")";
+						".$importe.",
+						".$baseimponible.")";
 $res = $this->query($sql,1);
+
 return $res;
 		
+}
+
+function insertarDetalle($importe,$refiva,$reffactura) {
+	$sql	=		"INSERT INTO dfmasociados.dbdetallefactura
+						(iddetallefactura,
+						importe,
+						refiva,
+						reffactura)
+					VALUES
+						('',
+						".$importe.",
+						".$refiva.",
+						".$reffactura.")";
+	$res = $this->query($sql,1);
+
+return $res;				
+						
 }
 
 function traerFacturas($idFactura) {

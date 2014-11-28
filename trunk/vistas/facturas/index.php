@@ -1,6 +1,10 @@
 <?
 
+include ('../../includes/funcionesFacturas.php');
 
+$ServiciosFacturas  = new ServiciosFacturas();
+
+$resActividad = $ServiciosFacturas->traerActividades();
 
 
 ?>
@@ -79,196 +83,148 @@
 	$( document ).ready(function() {
 		// Handler for .ready() called.
 
-		$("#concepto,#cantidad,#importe").click(function(event) {
-			$("#errorItem").html('<strong>Importante!</strong>Es necesario completar todos los campos para poder cargar.');
-		});
 
-		function validarFact() {
-			$error	=	"";
-			if ($("#nrofactura").val() == "") {
-				$error	=	"* No puede estar vacio el campo Nro Factura";
-			}
-
-			if ($("#palabraclave").val() == "") {
-				$error	=	$error+"<br>* No puede estar vacio el campo Palabra Clave";
-			}
-
-			if ($("#iva").val() == "") {
-				$error	=	$error+"<br>* No puede estar vacio el campo IVA";
-			}
-			
-			if ($("#retencion").val() == "") {
-				$error	=	$error+"<br>* No puede estar vacio el campo Retención";
-			}
-			
-			if (parseFloat(SumarTabla()) <= 0) {
-				$error	=	$error+"<br>* Debe cargar algun concepto";
-			}
-			
-			return $error;	
-		}
-
-		function validador() {
-			$error	=	"";
-			if ($("#concepto").val() == "") {
-				$error	=	"* No puede estar vacio el campo Conceptos";
-			}
-
-			if ($("#cantidad").val() == "") {
-				$error	=	$error+"<br>* No puede estar vacio el campo Cantidad";
-			}
-
-			if ($("#importe").val() == "") {
-				$error	=	$error+"<br>* No puede estar vacio el campo Importe";
-			}
-			
-			return $error;	
+	function validarFact() {
+		$error	=	"";
+		if ($("#nrofactura").val() == "") {
+			$error	=	"* No puede estar vacio el campo Nro Factura";
 		}
 		
+		return $error;	
+	}
 
-		function SumarTabla() {
-		var suma = 0;
-		//borrarDetalleFacturaAux();
-			$('#conceptoscargados tr#row').each(function(){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
-				suma += parseFloat($(this).find('td').eq(3).text()||0,10); //numero de la celda 3
-
-			})
-			return suma;
-
-	  	}
-	  	
-	  	$('#iva').change(function(event) {
-	  		if (parseFloat(SumarTabla()) > 0) {
-	  			$('#resultadoFinal').html('Total con descuento: <span class="glyphicon glyphicon-euro"></span>'+SumarTablaDescuentos().toFixed(2));
-		  	}
-	  	});
-	  	
-	  	function SumarTablaDescuentos() {
-		var suma = 0;
-		//borrarDetalleFacturaAux();
-			//$('#conceptoscargados tr#row').each(function(){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
-			//	suma += parseFloat($(this).find('td').eq(3).text()||0,10).toFixed(2); //numero de la celda 3
-
-			//});
-			//alert($('#iva option:selected').text());
-			
-			suma = SumarTabla();
-			
-			resta = (suma*parseFloat($('#iva option:selected').text().replace('% ','').replace(',','.'))/100).toFixed(2);
-			retencion = (suma*parseFloat($('#retencion option:selected').text().replace('% ','').replace(',','.'))/100).toFixed(2);
-			//alert((suma*parseFloat($('#iva option:selected').text().replace('% ','').replace(',','.'))/100).toFixed(2));
-
-			return suma + parseFloat(resta) + parseFloat(retencion);
-
-	  	}
-
-	  	//elimina una fila
-	  	$(document).on("click",".eliminarfila",function(){
-			var padre = $(this).parents().get(2);
-			//var resta = parseInt($(this).find('td').eq(4).text()||0,10);
-			//alert(parseInt($(this).parents().get(1).find('td').eq(4).text()||0,10));
-			//var id = $(this).parents().find('td').attr('id');
-			//alert(id);
-			//var borrar = id.replace('fcodprod', '' );
-			//borrarDetalleFacturaAuxPorCod(borrar);
-			//$(padre).animate({'opacity':0} ,800,function() { $(this).remove() });
-			$(padre).remove();
+	$( "#importe1" ).focusout(function() {
+		if ($( this ).val() == '') {
+			$( this ).val('0');
+		}
+	});
+	
+	$( "#importe2" ).focusout(function() {
+		if ($( this ).val() == '') {
+			$( this ).val('0');
+		}
+	});
+	
+	$( "#importe3" ).focusout(function() {
+		if ($( this ).val() == '') {
+			$( this ).val('0');
+		}
+	});
+	
+	$( "#importeRetencion" ).focusout(function() {
+		if ($( this ).val() == '') {
+			$( this ).val('0');
+		}
+	});
+	
+	$( "#percepcion" ).focusout(function() {
+		if ($( this ).val() == '') {
+			$( this ).val('0');
+		}
+	});
+	
+	$( "#exento" ).focusout(function() {
+		if ($( this ).val() == '') {
+			$( this ).val('0');
+		}
+	});
+	
+	$( "#gravado" ).focusout(function() {
+		if ($( this ).val() == '') {
+			$( this ).val('0');
+		}
+	});
+	
+	
+	function calcular() {
+		importe1Iva = parseFloat($('#importe1').val()) * 0.105;
+		importe2Iva = parseFloat($('#importe2').val()) * 0.21;
+		importe3Iva = parseFloat($('#importe3').val()) * 0.27;
 		
+		importe1 = parseFloat($('#importe1').val());
+		importe2 = parseFloat($('#importe2').val());
+		importe3 = parseFloat($('#importe3').val());
 		
-			$('#sumaTabla').html("<span class='glyphicon glyphicon-euro'></span>" + SumarTabla());
-			$('#resultadoFinal').html('Total con descuento: <span class="glyphicon glyphicon-euro"></span>'+SumarTablaDescuentos());
-	  	});
-
-		$("#cargar").click(function(event) {
-			if (validador()== "") {
-				if (isNaN(parseFloat($("#importe").val().trim()))== false) {
-					$("#conceptoscargados").prepend("<tr id='row'><td>"+
-					$("#concepto").val()+"</td><td>"+
-					$("#cantidad").val().trim()+"</td><td>"+
-					parseFloat($("#importe").val().trim())+"</td><td>"+
-					($("#cantidad").val().trim()*parseFloat($("#importe").val().trim()))+"</td><td><span class='glyphicon glyphicon-remove'> <input type='button' class='eliminarfila' value='Eliminar' /></span></td></tr>");	
-					$('#sumaTabla').html("<span class='glyphicon glyphicon-euro'></span>" + SumarTabla());
-					$('#resultadoFinal').html('Total con descuento: <span class="glyphicon glyphicon-euro"></span>'+SumarTablaDescuentos().toFixed(2));
-				} else {
-					alert("No es un numero");
-				}
-			} else {
-				
-				$("#errorItem").html(validador());
-			}
-			
-			
-		});
+		retencion = parseFloat($('#importeRetencion').val());
+		percepcion = parseFloat($('#percepcion').val());
+		exento = parseFloat($('#exento').val());
+		gravado = parseFloat($('#gravado').val());
+		
+		totalFacturado = importe1 + importe2 + importe3 + importe1Iva + importe2Iva + importe3Iva + retencion + percepcion + exento + gravado;
+		
+		totalBaseImponible = importe1 + importe2 + importe3 + exento + gravado;
+		
+		$('#resultadoFinal').html('Total Facturado: $ '+totalFacturado);
+		$('#resultadoBase').html('Base Imponible: $ '+totalBaseImponible);
+		
+		$('#importe').val(totalFacturado);
+		$('#baseimponible').val(totalBaseImponible);
+		
+	}
 
 
+	$('#calcular').click(function(){
+		calcular();
+	});
 
-		function grabarDetalle(refFactura) {
-			$('#conceptoscargados tr#row').each(function(){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
-				concepto = $(this).find('td').eq(0).text();
-				cantidad = parseInt($(this).find('td').eq(1).text()||0,10);
-				importe = parseFloat($(this).find('td').eq(2).text()||0,10); //numero de la celda 3
-				
-					$.ajax({
-                                data:  {concepto: concepto,cantidad: cantidad,importe: importe,nrofactura: $("#nrofactura").val(),reffactura: refFactura, accion: 'insertarDetalleDeFactura'},
-                                url:   '../../ajax/ajax.php',
-                                type:  'post',
-                                beforeSend: function () {
-                                        $("#load").html('<img src="../../imagenes/load13.gif" width="50" height="50" />');
-                                },
-                                success:  function (response) {
-                                    
+
+		//al enviar el formulario
+    $('#generar').click(function(){
+		
+		if (validarFact() == "")
+        {
+			//información del formulario
+			var formData = new FormData($(".formulario")[0]);
+			var message = "";
+			//hacemos la petición ajax  
+			$.ajax({
+				url: '../../ajax/ajax.php',  
+				type: 'POST',
+				// Form data
+				//datos del formulario
+				data: formData,
+				//necesario para subir archivos via ajax
+				cache: false,
+				contentType: false,
+				processData: false,
+				//mientras enviamos el archivo
+				beforeSend: function(){
+					$("#load").html('<img src="../../imagenes/load13.gif" width="50" height="50" />');       
+				},
+				//una vez finalizado correctamente
+				success: function(data){
+
+					if (data != '') {
+                                            $(".alert").removeClass("alert-danger");
+											$(".alert").removeClass("alert-info");
+                                            $(".alert").addClass("alert-success");
+                                            $(".alert").html('<strong>Ok!</strong> Se cargo exitosamente el <strong>Cliente</strong>. ');
+											$(".alert").delay(3000).queue(function(){
+												/*aca lo que quiero hacer 
+												  después de los 2 segundos de retraso*/
+												$(this).dequeue(); //continúo con el siguiente ítem en la cola
+												
+											});
+											$("#load").html('');
+											url = "index.php";
+											$(location).attr('href',url);
+                                            
+											
+                                        } else {
+                                        	$(".alert").removeClass("alert-danger");
+                                            $(".alert").addClass("alert-danger");
+                                            $(".alert").html('<strong>Error!</strong> '+data);
                                             $("#load").html('');
-       
-                                }
-					});						
+                                        }
+				},
+				//si ha ocurrido un error
+				error: function(){
+					$(".alert").html('<strong>Error!</strong> Actualice la pagina');
+                    $("#load").html('');
+				}
 			});
 		}
-
-
-		$('#generar').click(function(event) {
-				if (validarFact() != "") {
-					
-					$("#errorFact").html(validarFact());
-				} else {
-					//agrego los conceptos
-					/*
-					$('#conceptoscargados tr#row').each(function(){ //filas con clase 'dato', especifica una clase, asi no tomas el nombre de las columnas
-						concepto = $(this).find('td').eq(0).text();
-						cantidad = parseInt($(this).find('td').eq(2).text()||0,10);
-						importe = parseFloat($(this).find('td').eq(2).text()||0,10); //numero de la celda 3
-						});
-					*/
-					$.ajax({
-                                data:  {refcliente: $("#refC").val(),usuacrea: 'Marcos',reftipoiva: $("#iva").val(),refretencion: $("#retencion").val(),palabraclave: $("#palabraclave").val(),otros: $("#otros").val(),comentarios: $("#comentarios").val(),nrofactura: $("#nrofactura").val(), accion: 'insertarCompra'},
-                                url:   '../../ajax/ajax.php',
-                                type:  'post',
-                                beforeSend: function () {
-                                        $("#load").html('<img src="../../imagenes/load13.gif" width="50" height="50" />');
-                                },
-                                success:  function (response) {
-                                    
-                                        if (response != '') {
-
-                                        	grabarDetalle(response);
-
-                                            $("#errorFact").removeClass("alert-info");
-                                            $("#errorFact").addClass("alert-success");
-                                            $("#errorFact").html('<strong>Ok!</strong> Se cargo exitosamente el <strong>Cliente</strong>. ');
-                                            $("#load").html('');
-
-                                        } else {
-                                        	$("#errorFact").removeClass("alert-info");
-                                            $("#errorFact").addClass("alert-danger");
-                                            $("#errorFact").html('<strong>Error!</strong> '+response);
-                                            $("#load").html('');
-
-                                        }
-                                        
-                                }
-					});
-					//agrego el pdf
-				}
-		});
+    });
 		
 	});
 
@@ -298,7 +254,7 @@
 			<h3 class="panel-title">Datos de la Factura.</h3>
 		</div>
 			<div class="panel-body">
-				<form role="form">
+				<form class="formulario" role="form">
 				
 					<div class="form-group">
 						<label for="NroFactura">Nº de Factura</label>
@@ -328,27 +284,18 @@
                     
                     <div class="row">
 
-					<div class="form-group col-md-4">
-						<label for="Iva">Seleccione el IVA</label>
-						<select class="form-control" id="iva" style="width:100px;">
-						    <option value="2">10,5 %</option>
-						</select>
-                        <input type="text" class="form-control" name="importe1" id="importe1" value="0"> 
-					</div>
-                    <div class="form-group col-md-4">
-						<label for="Iva">Seleccione el IVA</label>
-						<select class="form-control" id="iva" style="width:100px;">
-						    <option value="1">21 %</option>
-						</select>
-                        <input type="text" class="form-control" name="importe2" id="importe2" value="0"> 
-					</div>
-                    <div class="form-group col-md-4">
-						<label for="Iva">Seleccione el IVA</label>
-						<select class="form-control" id="iva" style="width:100px;">
-                            <option value="4">27 %</option>
-						</select>
-                        <input type="text" class="form-control" name="importe3" id="importe3" value="0"> 
-					</div>
+                        <div class="form-group col-md-4">
+                            <label for="Iva">IVA 10,5%</label>
+                            <input type="text" class="form-control" name="importe1" id="importe1" value="0"> 
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="Iva">IVA 21%</label>
+                            <input type="text" class="form-control" name="importe2" id="importe2" value="0"> 
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="Iva">IVA 27%</label>
+                            <input type="text" class="form-control" name="importe3" id="importe3" value="0"> 
+                        </div>
                     
                     </div>
                     
@@ -372,19 +319,33 @@
                     <div class="row">
                     <div class="form-group col-md-6">
 						<label for="actividad">Seleccione la Actividad</label>
-						<select class="form-control" id="actividad">
-                            
+						<select class="form-control" id="actividad" name="actividad">
+                            <?php while ($row = mysql_fetch_array($resActividad)) { ?>
+                            	<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+                            <?php } ?>
 						</select>
                        
 					</div>
 					</div>
 					
-					<div id="resultadoFinal" style="background-color:#66a3d2;border-left:3px solid #0B61A4;padding:10px;color:#FFC373;font-weight:bold;font-size:1.2em;">Total con Descuentos: $</div>
+                    <input type="hidden" id="importe" name="importe" value="0">
+                    <input type="hidden" id="baseimponible" name="baseimponible" value="0">
+                    
+					<div id="resultadoFinal" style="background-color:#66a3d2;border-left:3px solid #0B61A4;padding:10px;color:#FFC373;font-weight:bold;font-size:1.2em;">Total Facturado: $</div>
+                    <div id="resultadoBase" style="background-color:#66a3d2;border-left:3px solid #0B61A4;padding:10px;color:#FFC373;font-weight:bold;font-size:1.2em;">Base Imponible: $</div>
+                    
 					<br />
 					<br />
 					<div align="center">
 						<div id="load"></div>
-						<button id="generar" class="btn btn-warning" type="button">Generar Factura</button>
+                        <ul class="list-inline">
+                        	<li>
+							<button id="generar" class="btn btn-warning" type="button">Generar Factura</button>
+                            </li>
+                            <li>
+                            <button id="calcular" class="btn btn-info" type="button">Calcular Factura</button>
+                            </li>
+                        </ul>
 					</div>
 					
 					<div id="loading"></div>
