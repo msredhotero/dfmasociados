@@ -43,7 +43,9 @@ function insertarCliente($serviciosClientes) {
 	$email			=	$_POST['email'];
 	$nrodocumento	=	$_POST['nrodocumento'];
 	$telefono		=	$_POST['telefono'];
-	echo $serviciosClientes->insertarCliente($nombre,'',$email,$nrodocumento,$telefono);
+	$reftipocliente =	$_POST['reftipocliente'];
+	$cuit			=	$_POST['cuit'];
+	echo $serviciosClientes->insertarCliente($nombre,'',$email,$nrodocumento,$telefono,$cuit,$reftipocliente);
 }
 
 

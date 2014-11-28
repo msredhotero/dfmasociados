@@ -32,14 +32,64 @@ function insertarFactura($ServiciosFacturas) {
 	$refcliente				=	$_POST['refcliente'];
 	$importe				=	$_POST['importe'];
 	$baseimponible			=	$_POST['baseimponible'];
+	$proveedor				=	$_POST['proveedor'];
 	
-	$ServiciosFacturas->insertarDetalle($importe1 == '' ? 0 : $importe1,2,$reffactura);
-	$ServiciosFacturas->insertarDetalle($importe2 == '' ? 0 : $importe2,1,$reffactura);
-	$ServiciosFacturas->insertarDetalle($importe3 == '' ? 0 : $importe3,4,$reffactura);
+	if ($proveedor == 1) {
+		$BuscarMes = date('m');	
+	} else {
+		$BuscarMes = substr($fechafactura,5,2);	
+	}
 	
-	$res = $ServiciosFacturas->insertarFactura($nrofactura,$fechafactura,'diego',1,$refcliente,1,1,'',date('M'),$importeRetencion,'',$percepcion,$actividad,$exento,$gravado,$importe,$baseimponible);
+	switch ($BuscarMes) {
+    case '01':
+        $mes= 'Enero';
+        break;
+   	case '02':
+        $mes= 'Febrero';
+        break;
+	case '03':
+        $mes= 'Marzo';
+        break;
+	case '04':
+        $mes= 'Abril';
+        break;
+	case '05':
+        $mes= 'Mayo';
+        break;
+	case '06':
+        $mes= 'Junio';
+        break;
+	case '07':
+        $mes= 'Julio';
+        break;
+	case '08':
+        $mes= 'Agosto';
+        break;
+	case '09':
+        $mes= 'Septiembre';
+        break;
+	case '10':
+        $mes= 'Octubre';
+        break;
+	case '11':
+        $mes= 'Noviembre';
+        break;
+	case '12':
+        $mes= 'Diciembre';
+        break;
+	}
 	
 	
+	
+	$res = $ServiciosFacturas->insertarFactura($nrofactura,$fechafactura,'diego',1,$refcliente,1,1,'',$mes,$importeRetencion,'',$percepcion,$actividad,$exento,$gravado,$importe,$baseimponible);
+	
+	$ServiciosFacturas->insertarDetalle($importe1 == '' ? 0 : $importe1,2,$res);
+	$ServiciosFacturas->insertarDetalle($importe2 == '' ? 0 : $importe2,1,$res);
+	$ServiciosFacturas->insertarDetalle($importe3 == '' ? 0 : $importe3,4,$res);
+	
+	echo $res;
+	
+	//echo $fechafactura;
 }
 
 

@@ -10,7 +10,11 @@ function traerActividades() {
 	$sql		=	"select idactividad,actividad from tbactividad";
 	$res = $this->query($sql,0);
 
-return $res;
+if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
 }
 
 function insertarFactura($nrofactura,$fechacreacion,$usuacrea,$refformapago,$refcliente,$cancelada,$reftipoiva,$comentarios,$mes,$retencion,$otros,$percepcion,$refactividad,$exento,$gravado,$importe,$baseimponible)
@@ -32,6 +36,7 @@ $sql		=	"INSERT INTO dfmasociados.dbfacturas
 						refactividad,
 						exento,
 						gravado,
+						importe,
 						baseimponible)
 					VALUES
 						('',
@@ -52,9 +57,14 @@ $sql		=	"INSERT INTO dfmasociados.dbfacturas
 						".$gravado.",
 						".$importe.",
 						".$baseimponible.")";
+			//return $sql;
 $res = $this->query($sql,1);
 
-return $res;
+if ($res == false) {
+		return 'Error al insertar datos';
+	} else {
+		return $res;
+	}
 		
 }
 
@@ -71,12 +81,23 @@ function insertarDetalle($importe,$refiva,$reffactura) {
 						".$reffactura.")";
 	$res = $this->query($sql,1);
 
-return $res;				
+if ($res == false) {
+		return 'Error al insertar datos';
+	} else {
+		return '';
+	}			
 						
 }
 
-function traerFacturas($idFactura) {
-	
+function traerFacturasBasico() {
+	$sql = "select * from dbfacturas";
+	$res = $this->query($sql,0);
+
+if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
 }
 
 
@@ -100,12 +121,23 @@ Function query($sql,$accion) {
 		
 		mysql_select_db($database);
 		
-		$result = mysql_query($sql,$conex);
+		        $error = 0;
+		mysql_query("BEGIN");
+		$result=mysql_query($sql,$conex);
 		if ($accion && $result) {
 			$result = mysql_insert_id();
 		}
-		mysql_close($conex);
-		return $result;
+		if(!$result){
+			$error=1;
+		}
+		if($error==1){
+			mysql_query("ROLLBACK");
+			return false;
+		}
+		 else{
+			mysql_query("COMMIT");
+			return $result;
+		}
 		
 	}
 

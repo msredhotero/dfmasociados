@@ -6,8 +6,9 @@ require '../../includes/funcionesClientes.php';
 
 $serviciosClientes = new ServiciosClientes();
 
-$resClientes = $serviciosClientes->traerClientes();
+$resClientes = $serviciosClientes->traerClientesNoProveedores();
 
+$resTC = $serviciosClientes->traerTipoClienteNoProveedor();
 
 ?>
 
@@ -101,12 +102,13 @@ $resClientes = $serviciosClientes->traerClientes();
 <h5>Usuario: <strong>Diego</strong></h5>
 
 <button id="verfacturas" class="btn btn-primary" type="button">Ver Facturas</button>
-<button id="crearfactura" class="btn btn-primary" type="button">Crear Facturas</button>
-
+<button id="crearfacturav" class="btn btn-success" type="button">Crear Facturas Venta</button>
+<button id="crearfacturap" class="btn btn-danger" type="button">Crear Facturas Proveedores</button>
+<button id="crearproveedor" class="btn btn-danger" type="button">Crear Proveedor</button>
 <br>
 <br>
 
-    <div class="panel panel-info" style="width:900px;" align="left">
+    <div class="panel panel-success" style="width:900px;" align="left">
 		<div class="panel-heading">
 			<h3 class="panel-title">Crear Cliente.</h3>
 		</div>
@@ -158,6 +160,25 @@ $resClientes = $serviciosClientes->traerClientes();
                         </div>
                     </div>
 
+					<div class="form-group col-md-6">
+                    	<label for="cuit" class="control-label" style="text-align:left">Cuit</label>
+                        <div class="input-group col-md-12">
+                            <input type="text" class="form-control" id="cuit" name="cuit" placeholder="Ingrese el Cuit..." >
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group col-md-6">
+                    	<label for="reftipocliente" class="control-label" style="text-align:left">Tipo Cliente</label>
+                        <div class="input-group col-md-12">
+                            <select name="reftipocliente" id="reftipocliente" class="form-control">
+                            	<?php while ($row = mysql_fetch_array($resTC)) { ?>
+                                	<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+                                <? } ?>
+                            </select>
+                        </div>
+                    </div>
+                    
 
                     </div>
                     </div>
@@ -184,7 +205,7 @@ $resClientes = $serviciosClientes->traerClientes();
     </div>
 
     
-    <div class="panel panel-success" style="width:900px;" align="left">
+    <div class="panel panel-default" style="width:900px;" align="left">
 		<div class="panel-heading">
 			<h3 class="panel-title">Ultimos clientes cargados</h3>
 		</div>
@@ -197,6 +218,7 @@ $resClientes = $serviciosClientes->traerClientes();
                         <th>E-Mail</th>
                         <th>NroDocumento</th>
                         <th>Telefono</th>
+                        <th>Cuit</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -214,7 +236,7 @@ $resClientes = $serviciosClientes->traerClientes();
                             <td><?php echo $row['email']; ?></td>
                             <td><?php echo $row['nrodocumento']; ?></td>
                             <td><?php echo $row['telefono']; ?></td>
-                            
+                            <td><?php echo $row['cuit']; ?></td>
                             <td>
                             		<div class="btn-group">
 										<button class="btn btn-success" type="button">Acciones</button>
@@ -501,16 +523,31 @@ $(document).ready(function(){
 		}
     });
 	
-	$('#crearfactura').live("click",function(){
+	$('#crearfacturav').live("click",function(){
 
 		url = "../facturas/";
 		$(location).attr('href',url);
 
 	})
 	
+	$('#crearfacturap').live("click",function(){
+
+		url = "../facturasProveedores/";
+		$(location).attr('href',url);
+
+	})
+	
+	
 	$('#verfacturas').live("click",function(){
 
 		url = "../verfacturas/";
+		$(location).attr('href',url);
+
+	})
+	
+	$('#crearproveedor').live("click",function(){
+
+		url = "../crearproveedor/";
 		$(location).attr('href',url);
 
 	})
