@@ -2,11 +2,21 @@
 
 include ('../../includes/funcionesFacturas.php');
 
+include ('../../includes/funcionesClientes.php');
+
+$serviciosClientes  = new ServiciosClientes();
+
 $ServiciosFacturas  = new ServiciosFacturas();
 
 $resActividad = $ServiciosFacturas->traerActividades();
 
+$resCant = mysql_num_rows($ServiciosFacturas->traerFacturasBasico());
 
+$resCantC = mysql_num_rows($serviciosClientes->traerClientesNoProveedores());
+
+$resCantP = mysql_num_rows($serviciosClientes->traerClientesProveedores());
+
+$resClientes = $serviciosClientes->traerClientesNoProveedores();
 ?>
 <!DOCTYPE HTML>
 
@@ -50,11 +60,12 @@ $resActividad = $ServiciosFacturas->traerActividades();
         
 		<script>
 			$(document).ready(function(){
-				$("#fechafactura").datepicker({
+			 $("#fechafactura").datepicker({
 		      showOn: 'both',
 		      buttonImage: 'calendar.png',
 		      buttonImageOnly: true,
 		      changeYear: true,
+			  dateFormat: 'yy-mm-dd',
 		      numberOfMonths: 2,
 		      onSelect: function(textoFecha, objDatepicker){
 		         $("#mensaje").html("<p>Has seleccionado: " + textoFecha + "</p>");
@@ -64,19 +75,7 @@ $resActividad = $ServiciosFacturas->traerActividades();
 		
 		</script>
 		
-		<style>
-			
-			$("#fechafactura").datepicker({
-		   showOn: 'both',
-		   buttonImage: 'calendar.png',
-		   buttonImageOnly: true,
-		   changeYear: true,
-		   numberOfMonths: 2,
-		   onSelect: function(textoFecha, objDatepicker){
-		      $("#mensaje").html("<p>Has seleccionado: " + textoFecha + "</p>");
-		   }
-		}); 
-		</style>
+
 
 <script>
 
@@ -243,29 +242,46 @@ $resActividad = $ServiciosFacturas->traerActividades();
 <h3>Crear Factura</h3>
 <h5>Usuario: <strong>Diego</strong></h5>
 
-<button id="verfacturas" class="btn btn-primary" type="button">Ver Facturas</button>
-<button id="crearcliente" class="btn btn-primary" type="button">Crear Clientes</button>
+<button id="verfacturas" class="btn btn-primary" type="button">Ver Facturas <span class="badge"> <?php echo $resCant; ?></span></button>
+<button id="crearfactura" class="btn btn-danger" type="button">Crear Facturas Proveedores</button>
+<button id="crearcliente" class="btn btn-success" type="button">Crear Clientes <span class="badge"> <?php echo $resCantC; ?></span></button>
+<button id="crearproveedor" class="btn btn-danger" type="button">Crear Proveedor <span class="badge"> <?php echo $resCantP; ?></span></button>
 
 <br>
 <br>
 
-		<div class="panel panel-info" style="width:700px;" align="left">
+		<div class="panel panel-success" style="width:700px;" align="left">
 		<div class="panel-heading">
 			<h3 class="panel-title">Datos de la Factura.</h3>
 		</div>
 			<div class="panel-body">
 				<form class="formulario" role="form">
-				
-					<div class="form-group">
-						<label for="NroFactura">Nº de Factura</label>
-						<input id="nrofactura" class="form-control" style="width:220px;" type="nrofactura" placeholder="Ingrese el Nº de Factura"/>
-					</div>
 					
-					
-					<div class="form-group">
-						<label for="FechaFactura">Fecha Factura</label>
-						<input type="text" class="form-control" name="fechafactura" id="fechafactura" style="width:200px;"> 
-					</div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="NroFactura">Nº de Factura</label>
+                            <input name="nrofactura" id="nrofactura" class="form-control" style="width:220px;" type="nrofactura" placeholder="Ingrese el Nº de Factura"/>
+                        </div>
+                        
+                        
+                        <div class="form-group col-md-6">
+                            <label for="FechaFactura">Fecha Factura</label>
+                            <input type="text" class="form-control" name="fechafactura" id="fechafactura" style="width:200px;"> 
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                    	<div class="form-group col-md-8">
+                            <label for="cliente">Cliente</label>
+                            <select id="refcliente" name="refcliente" class="form-control">
+                            	<?php while ($row = mysql_fetch_array($resClientes)) { ?>
+                                	<option value="<?php echo $row[0]; ?>"><?php echo utf8_encode($row[1])." - Cuit: ".$row[6]; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    
+                    </div>
+                    
 					
                     <div class="row">
                     	<div class="form-group col-md-6">
@@ -321,7 +337,7 @@ $resActividad = $ServiciosFacturas->traerActividades();
 						<label for="actividad">Seleccione la Actividad</label>
 						<select class="form-control" id="actividad" name="actividad">
                             <?php while ($row = mysql_fetch_array($resActividad)) { ?>
-                            	<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
+                            	<option value="<?php echo $row[0]; ?>"><?php echo utf8_encode($row[1]); ?></option>
                             <?php } ?>
 						</select>
                        
@@ -330,9 +346,11 @@ $resActividad = $ServiciosFacturas->traerActividades();
 					
                     <input type="hidden" id="importe" name="importe" value="0">
                     <input type="hidden" id="baseimponible" name="baseimponible" value="0">
+                    <input type="hidden" id="accion" name="accion" value="insertarFactura"/>
+                    <input type="hidden" id="proveedor" name="proveedor" value="0"/>
                     
-					<div id="resultadoFinal" style="background-color:#66a3d2;border-left:3px solid #0B61A4;padding:10px;color:#FFC373;font-weight:bold;font-size:1.2em;">Total Facturado: $</div>
-                    <div id="resultadoBase" style="background-color:#66a3d2;border-left:3px solid #0B61A4;padding:10px;color:#FFC373;font-weight:bold;font-size:1.2em;">Base Imponible: $</div>
+					<div id="resultadoFinal" style="background-color: #090;border-left:3px solid #030;padding:10px;color:#FFC373;font-weight:bold;font-size:1.2em;">Total Facturado: $</div>
+                    <div id="resultadoBase" style="background-color:#090;border-left:3px solid #030;padding:10px;color:#FFC373;font-weight:bold;font-size:1.2em;">Base Imponible: $</div>
                     
 					<br />
 					<br />
@@ -351,7 +369,7 @@ $resActividad = $ServiciosFacturas->traerActividades();
 					<div id="loading"></div>
 					<br>
 					<br>
-					<div class="alert alert-info" id="errorFact">
+					<div class="alert alert-warning" id="errorFact">
 					<strong>Importante!</strong>
 					Es necesario completar todos los campos y cargar algun concepto para poder generar la factura. Muchas Gracias.
 					</div>
@@ -371,12 +389,28 @@ $resActividad = $ServiciosFacturas->traerActividades();
 
 				})
 				
+				$('#crearproveedor').live("click",function(){
+
+				  	url = "../crearproveedor/";
+					$(location).attr('href',url);
+
+				})
+				
+				
 				$('#verfacturas').live("click",function(){
 
 				  	url = "../verfacturas/";
 					$(location).attr('href',url);
 
 				})
+				
+				$('#crearfactura').live("click",function(){
+
+				  	url = "../facturasProveedores/";
+					$(location).attr('href',url);
+
+				})
+				
 				
 				</script>
 			</div>

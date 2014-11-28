@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 28-11-2014 a las 21:59:24
+-- Tiempo de generación: 28-11-2014 a las 00:08:29
 -- Versión del servidor: 5.1.36-community-log
 -- Versión de PHP: 5.4.3
 
@@ -33,20 +33,15 @@ CREATE TABLE IF NOT EXISTS `dbclientes` (
   `email` varchar(60) COLLATE utf8_spanish_ci DEFAULT NULL,
   `nrodocumento` int(11) DEFAULT NULL,
   `telefono` varchar(25) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `reftipocliente` int(11) DEFAULT NULL,
-  `cuit` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idcliente`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=5 ;
 
 --
 -- Volcado de datos para la tabla `dbclientes`
 --
 
-INSERT INTO `dbclientes` (`idcliente`, `nombre`, `nrocliente`, `email`, `nrodocumento`, `telefono`, `reftipocliente`, `cuit`) VALUES
-(6, 'Saupurein Marcos', 'Sa0001', '', NULL, '', 5, '20315524661'),
-(7, 'El pueblito S.A', 'El0007', '', NULL, '', 2, '468198654'),
-(8, 'Capability S.A', 'Ca0008', '', NULL, '', 1, '2342355'),
-(9, 'Ventura & Cía', 'Ve0009', '', NULL, '', 1, '54555');
+INSERT INTO `dbclientes` (`idcliente`, `nombre`, `nrocliente`, `email`, `nrodocumento`, `telefono`) VALUES
+(4, 'Saupurein Marcos', 'Sa0001', '', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -60,22 +55,7 @@ CREATE TABLE IF NOT EXISTS `dbdetallefactura` (
   `refiva` smallint(6) NOT NULL,
   `reffactura` int(11) NOT NULL,
   PRIMARY KEY (`iddetallefactura`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=28 ;
-
---
--- Volcado de datos para la tabla `dbdetallefactura`
---
-
-INSERT INTO `dbdetallefactura` (`iddetallefactura`, `importe`, `refiva`, `reffactura`) VALUES
-(27, '0.00', 4, 9),
-(26, '9300.00', 1, 9),
-(25, '0.00', 2, 9),
-(24, '0.00', 4, 8),
-(23, '7500.00', 1, 8),
-(22, '0.00', 2, 8),
-(21, '0.00', 4, 7),
-(20, '5000.00', 1, 7),
-(19, '0.00', 2, 7);
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -86,7 +66,7 @@ INSERT INTO `dbdetallefactura` (`iddetallefactura`, `importe`, `refiva`, `reffac
 CREATE TABLE IF NOT EXISTS `dbfacturas` (
   `idfactura` int(11) NOT NULL AUTO_INCREMENT,
   `nrofactura` varchar(45) NOT NULL,
-  `fechacreacion` date NOT NULL,
+  `fechacreacion` datetime NOT NULL,
   `usuacrea` varchar(45) NOT NULL,
   `refformapago` int(5) DEFAULT NULL,
   `refcliente` int(11) DEFAULT NULL,
@@ -103,16 +83,7 @@ CREATE TABLE IF NOT EXISTS `dbfacturas` (
   `importe` decimal(18,2) DEFAULT NULL,
   `baseimponible` decimal(18,2) DEFAULT NULL,
   PRIMARY KEY (`idfactura`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
-
---
--- Volcado de datos para la tabla `dbfacturas`
---
-
-INSERT INTO `dbfacturas` (`idfactura`, `nrofactura`, `fechacreacion`, `usuacrea`, `refformapago`, `refcliente`, `cancelada`, `reftipoiva`, `comentarios`, `mes`, `retencion`, `otros`, `percepcion`, `refactividad`, `exento`, `gravado`, `importe`, `baseimponible`) VALUES
-(7, 'p', '2014-11-21', 'diego', 1, 7, b'1', 1, '', 'Noviembre', '0.00', '0.00', '0.00', 1, '0.00', '0.00', '6050.00', '5000.00'),
-(8, 'g', '2014-07-17', 'diego', 1, 8, b'1', 1, '', 'Octubre', '0.00', '0.00', '0.00', 1, '0.00', '0.00', '9075.00', '7500.00'),
-(9, 'd', '2014-07-18', 'diego', 1, 8, b'1', 1, '', 'Noviembre', '0.00', '0.00', '0.00', 1, '0.00', '0.00', '11253.00', '9300.00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -175,32 +146,6 @@ INSERT INTO `tbretenciones` (`idretencion`, `retencion`, `monto`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tbtipocliente`
---
-
-CREATE TABLE IF NOT EXISTS `tbtipocliente` (
-  `idtipocliente` int(11) NOT NULL AUTO_INCREMENT,
-  `TipoCliente` varchar(50) NOT NULL,
-  `proveedor` bit(1) DEFAULT NULL,
-  PRIMARY KEY (`idtipocliente`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
---
--- Volcado de datos para la tabla `tbtipocliente`
---
-
-INSERT INTO `tbtipocliente` (`idtipocliente`, `TipoCliente`, `proveedor`) VALUES
-(1, 'Proveedor', b'1'),
-(2, 'Responsable inscripto', b'1'),
-(3, 'Monotributista', b'1'),
-(4, 'Exento', b'1'),
-(5, 'Consumidor Final', b'0'),
-(6, 'Responsable inscripto', b'0'),
-(7, 'Responsable monotributo', b'0');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `tbtipoiva`
 --
 
@@ -230,22 +175,14 @@ INSERT INTO `tbtipoiva` (`idtipoiva`, `descripcion`, `activo`, `monto`) VALUES
 CREATE TABLE IF NOT EXISTS `viewfacturas` (
 `idfactura` int(11)
 ,`nrofactura` varchar(45)
-,`fechacreacion` date
+,`fechacreacion` datetime
 ,`mes` varchar(20)
 ,`refcliente` int(11)
 ,`actividad` varchar(45)
+,`descripcion` varchar(30)
 ,`retencion` decimal(18,2)
 ,`percepcion` decimal(18,2)
 ,`exento` decimal(18,2)
-,`importeBase` decimal(18,2)
-,`descripcion` varchar(30)
-,`monto` decimal(4,2)
-,`gravado` decimal(18,2)
-,`importe` decimal(18,2)
-,`baseimponible` decimal(18,2)
-,`nombre` varchar(45)
-,`TipoCliente` varchar(50)
-,`proveedor` bit(1)
 );
 -- --------------------------------------------------------
 
@@ -254,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `viewfacturas` (
 --
 DROP TABLE IF EXISTS `viewfacturas`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viewfacturas` AS select `dbfacturas`.`idfactura` AS `idfactura`,`dbfacturas`.`nrofactura` AS `nrofactura`,`dbfacturas`.`fechacreacion` AS `fechacreacion`,`dbfacturas`.`mes` AS `mes`,`dbfacturas`.`refcliente` AS `refcliente`,`tbactividad`.`actividad` AS `actividad`,`dbfacturas`.`retencion` AS `retencion`,`dbfacturas`.`percepcion` AS `percepcion`,`dbfacturas`.`exento` AS `exento`,`dbdetallefactura`.`importe` AS `importeBase`,`tbtipoiva`.`descripcion` AS `descripcion`,`tbtipoiva`.`monto` AS `monto`,`dbfacturas`.`gravado` AS `gravado`,`dbfacturas`.`importe` AS `importe`,`dbfacturas`.`baseimponible` AS `baseimponible`,`dbclientes`.`nombre` AS `nombre`,`tbtipocliente`.`TipoCliente` AS `TipoCliente`,`tbtipocliente`.`proveedor` AS `proveedor` from (((((`dbfacturas` join `dbclientes` on((`dbclientes`.`idcliente` = `dbfacturas`.`refcliente`))) join `tbactividad` on((`tbactividad`.`idactividad` = `dbfacturas`.`refactividad`))) join `dbdetallefactura` on((`dbdetallefactura`.`reffactura` = `dbfacturas`.`idfactura`))) join `tbtipoiva` on((`tbtipoiva`.`idtipoiva` = `dbdetallefactura`.`refiva`))) join `tbtipocliente` on((`tbtipocliente`.`idtipocliente` = `dbclientes`.`reftipocliente`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `viewfacturas` AS select `dbfacturas`.`idfactura` AS `idfactura`,`dbfacturas`.`nrofactura` AS `nrofactura`,`dbfacturas`.`fechacreacion` AS `fechacreacion`,`dbfacturas`.`mes` AS `mes`,`dbfacturas`.`refcliente` AS `refcliente`,`tbactividad`.`actividad` AS `actividad`,`tbtipoiva`.`descripcion` AS `descripcion`,`dbfacturas`.`retencion` AS `retencion`,`dbfacturas`.`percepcion` AS `percepcion`,`dbfacturas`.`exento` AS `exento` from (((`dbfacturas` join `dbclientes` on((`dbclientes`.`idcliente` = `dbfacturas`.`refcliente`))) join `tbactividad` on((`tbactividad`.`idactividad` = `dbfacturas`.`refactividad`))) join `tbtipoiva` on((`tbtipoiva`.`idtipoiva` = `dbfacturas`.`reftipoiva`)));
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

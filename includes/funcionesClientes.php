@@ -11,6 +11,28 @@ class ServiciosClientes {
 
 /* logica de negocios para los clientes */
 
+function traerTipoClienteProveedor() {
+	$sql = "select idtipocliente, tipocliente from tbtipocliente where proveedor = 1 order by tipocliente";	
+	$res	=	$this->query($sql,0);
+	if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
+
+
+function traerTipoClienteNoProveedor() {
+	$sql = "select idtipocliente, tipocliente from tbtipocliente where proveedor = 0 order by tipocliente";	
+	$res	=	$this->query($sql,0);
+	if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
+
+
 function generarNroCliente($nombre) {
 	$primerasLetras = substr(trim($nombre),0,2);
 	$sql = "select idcliente from dbclientes order by idcliente desc";
@@ -27,15 +49,17 @@ function generarNroCliente($nombre) {
 
 //el utf8_decode($cadena) este va en todos los campos que sean tipo string o cadena o varchar
 
-function insertarCliente($nombre,$nrocliente,$email,$nrodocumento,$telefono) {
-	$sql	=	"insert into dbclientes(idcliente,nombre,nrocliente,email,nrodocumento,telefono)
+function insertarCliente($nombre,$nrocliente,$email,$nrodocumento,$telefono,$cuit,$reftipocliente) {
+	$sql	=	"insert into dbclientes(idcliente,nombre,nrocliente,email,nrodocumento,telefono,reftipocliente,cuit)
 					values
 						('',
 						 '".utf8_decode($nombre)."',
 						 '".utf8_decode($this->generarNroCliente($nombre))."',
 						 '".utf8_decode($email)."',
 						 ".($nrodocumento == '' ? 'null' : $nrodocumento).",
-						 '".$telefono."')";
+						 '".$telefono."',
+						 ".$reftipocliente.",
+						 '".$cuit."')";
 	//return $sql;
 	$res	=	$this->query($sql,1);
 	if ($res == false) {
@@ -99,6 +123,34 @@ function traerClientes() {
 	}
 }
 
+
+function traerClientesProveedores() {
+	$sql	=	"select idcliente,nombre,nrocliente,email,nrodocumento,telefono ,cuit, tc.tipocliente
+				 from dbclientes c
+				 inner join tbtipocliente tc
+				 on c.reftipocliente = tc.idtipocliente
+				 where tc.proveedor = 1";
+	$res	=	$this->query($sql,0);
+	if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
+
+function traerClientesNoProveedores() {
+	$sql	=	"select idcliente,nombre,nrocliente,email,nrodocumento,telefono ,cuit, tc.tipocliente
+				 from dbclientes c
+				 inner join tbtipocliente tc
+				 on c.reftipocliente = tc.idtipocliente
+				 where tc.proveedor = 0";
+	$res	=	$this->query($sql,0);
+	if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
 
 function traerClientePorId($id) {
 	$sql	=	"select c.idcliente,c.nombre,c.nrocliente,c.email,c.nrodocumento,c.telefono,cc.saldo
