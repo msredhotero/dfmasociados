@@ -100,6 +100,194 @@ if ($res == false) {
 	}
 }
 
+function traerFacturaProveedor($anio) {
+	$sql	=	"SELECT 
+					v.idfactura,
+					v.nrofactura,
+					v.fechacreacion,
+					v.mes,
+					v.refcliente,
+					v.actividad,
+					v.retencion,
+					v.percepcion,
+					v.exento,
+					v.gravado,
+					v.nombre,
+					v.tipocliente,
+					v.importe,
+					v.baseimponible,
+					max(case
+						when v.monto = 0.105 then v.importebase
+						else 0
+					end) as Importe10,
+					max(case
+						when v.monto = 0.210 then v.importebase
+						else 0
+					end) as Importe21,
+					max(case
+						when v.monto = 0.270 then v.importebase
+						else 0
+					end) as Importe27
+				FROM
+					dfmasociados.viewfacturas v
+						inner join
+					dfmasociados.tbmeses m ON v.mes = m.meses
+				where
+					v.proveedor = 1
+					and year(v.fechacreacion) = '".$anio."'
+				group by v.idfactura , v.nrofactura , v.fechacreacion , v.mes , v.baseimponible, v.refcliente , v.actividad , v.retencion , v.percepcion , v.exento , v.gravado , v.nombre , v.tipocliente , v.importe
+				order by m.valor";
+				
+				$res = $this->query($sql,0);
+
+if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
+
+
+function traerFacturaVendedor($anio) {
+	$sql	=	"SELECT 
+					v.idfactura,
+					v.nrofactura,
+					v.fechacreacion,
+					v.mes,
+					v.refcliente,
+					v.actividad,
+					v.retencion,
+					v.percepcion,
+					v.exento,
+					v.gravado,
+					v.nombre,
+					v.tipocliente,
+					v.importe,
+					v.baseimponible,
+					max(case
+						when v.monto = 0.105 then v.importebase
+						else 0
+					end) as Importe10,
+					max(case
+						when v.monto = 0.210 then v.importebase
+						else 0
+					end) as Importe21,
+					max(case
+						when v.monto = 0.270 then v.importebase
+						else 0
+					end) as Importe27
+				FROM
+					dfmasociados.viewfacturas v
+						inner join
+					dfmasociados.tbmeses m ON v.mes = m.meses
+				where
+					v.proveedor = 0
+					and year(v.fechacreacion) = '".$anio."'
+				group by v.idfactura , v.nrofactura , v.fechacreacion , v.baseimponible, v.mes , v.refcliente , v.actividad , v.retencion , v.percepcion , v.exento , v.gravado , v.nombre , v.tipocliente , v.importe
+				order by m.valor";
+				
+				$res = $this->query($sql,0);
+
+if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
+
+
+function traerFacturaProveedorTodos() {
+	$sql	=	"SELECT 
+					v.idfactura,
+					v.nrofactura,
+					v.fechacreacion,
+					v.mes,
+					v.refcliente,
+					v.actividad,
+					v.retencion,
+					v.percepcion,
+					v.exento,
+					v.gravado,
+					v.nombre,
+					v.tipocliente,
+					v.importe,
+					v.baseimponible,
+					max(case
+						when v.monto = 0.105 then v.importebase
+						else 0
+					end) as Importe10,
+					max(case
+						when v.monto = 0.210 then v.importebase
+						else 0
+					end) as Importe21,
+					max(case
+						when v.monto = 0.270 then v.importebase
+						else 0
+					end) as Importe27
+				FROM
+					dfmasociados.viewfacturas v
+						inner join
+					dfmasociados.tbmeses m ON v.mes = m.meses
+				where
+					v.proveedor = 1
+				group by v.idfactura , v.nrofactura , v.fechacreacion , v.baseimponible, v.mes , v.refcliente , v.actividad , v.retencion , v.percepcion , v.exento , v.gravado , v.nombre , v.tipocliente , v.importe
+				order by year(v.fechacreacion),m.valor";
+				
+				$res = $this->query($sql,0);
+
+if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
+
+
+function traerFacturaVendedoresTodos() {
+	$sql	=	"SELECT 
+					v.idfactura,
+					v.nrofactura,
+					v.fechacreacion,
+					v.mes,
+					v.refcliente,
+					v.actividad,
+					v.retencion,
+					v.percepcion,
+					v.exento,
+					v.gravado,
+					v.nombre,
+					v.tipocliente,
+					v.importe,
+					v.baseimponible,
+					max(case
+						when v.monto = 0.105 then v.importebase
+						else 0
+					end) as Importe10,
+					max(case
+						when v.monto = 0.210 then v.importebase
+						else 0
+					end) as Importe21,
+					max(case
+						when v.monto = 0.270 then v.importebase
+						else 0
+					end) as Importe27
+				FROM
+					dfmasociados.viewfacturas v
+						inner join
+					dfmasociados.tbmeses m ON v.mes = m.meses
+				where
+					v.proveedor = 0
+				group by v.idfactura , v.nrofactura , v.fechacreacion , v.baseimponible, v.mes , v.refcliente , v.actividad , v.retencion , v.percepcion , v.exento , v.gravado , v.nombre , v.tipocliente , v.importe
+				order by year(v.fechacreacion),m.valor";
+				
+				$res = $this->query($sql,0);
+
+if ($res == false) {
+		return 'Error al traer datos';
+	} else {
+		return $res;
+	}
+}
 
 Function query($sql,$accion) {
 		

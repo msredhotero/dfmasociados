@@ -1,15 +1,17 @@
 <?php
 
 
-require '../../includes/funcionesClientes.php';
+require '../../includes/funcionesFacturas.php';
+include ('../../includes/funcionesClientes.php');
 
+$serviciosClientes  = new ServiciosClientes();
+$serviciosFacturas = new ServiciosFacturas();
 
-$serviciosClientes = new ServiciosClientes();
+$resFacturas = $serviciosFacturas->traerFacturaProveedorTodos();
 
-$resClientes = $serviciosClientes->traerClientesNoProveedores();
+$resCantC = mysql_num_rows($serviciosClientes->traerClientesNoProveedores());
 
-$resTC = $serviciosClientes->traerTipoClienteNoProveedor();
-
+$resCantP = mysql_num_rows($serviciosClientes->traerClientesProveedores());
 ?>
 
 <!DOCTYPE HTML>
@@ -98,173 +100,74 @@ $resTC = $serviciosClientes->traerTipoClienteNoProveedor();
 
 <div class="content" align="center">
 
-<h3>Clientes</h3>
+<h3>Facturas</h3>
 <h5>Usuario: <strong>Diego</strong></h5>
 
 <button id="verfacturasventas" class="btn btn-success" type="button">Ver Facturas Ventas</button>
-<button id="verfacturasproveedores" class="btn btn-danger" type="button">Ver Facturas Proveedores</button>
 <button id="crearfacturav" class="btn btn-success" type="button">Crear Facturas Venta</button>
 <button id="crearfacturap" class="btn btn-danger" type="button">Crear Facturas Proveedores</button>
-<button id="crearproveedor" class="btn btn-danger" type="button">Crear Proveedor</button>
+<button id="crearcliente" class="btn btn-success" type="button">Crear Clientes <span class="badge"> <?php echo $resCantC; ?></span></button>
+<button id="crearproveedor" class="btn btn-danger" type="button">Crear Proveedor <span class="badge"> <?php echo $resCantP; ?></span></button>
 <br>
 <br>
-
-    <div class="panel panel-success" style="width:900px;" align="left">
-		<div class="panel-heading">
-			<h3 class="panel-title">Crear Cliente.</h3>
-		</div>
-			<div class="panel-body">
-        
-        <div class="row"> 
-        <div class="col-sm-12 col-md-12">
-        <form class="form-inline formulario" role="form">
-                	
-<!--idcliente,nombre,nrocliente,email,telefono,nrodocumento-->
-                	
-				              	
-                    <div class="form-group col-md-6">
-                    	<label for="nombre" class="control-label" style="text-align:left">Nombre Completo</label>
-                        <div class="input-group col-md-12">
-                        	<input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el Nombre Completo..." >
-                        </div>
-                    </div>
-                    
-
-                    
-                    <div class="form-group col-md-6">
-                    	<label for="nrocliente" class="control-label" style="text-align:left">NroCliente</label>
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control" id="nrocliente" name="nrocliente" placeholder="Ingrese el Nro Cliente..." >
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-6">
-                    	<label for="email" class="control-label" style="text-align:left">E-Mail</label>
-                        <div class="input-group col-md-12">
-                        	<input type="text" class="form-control" id="email" name="email" placeholder="Ingrese el E-Mail..." >
-                        </div>
-                    </div>
-
-
-                    <div class="form-group col-md-6">
-                    	<label for="telefono" class="control-label" style="text-align:left">Telefono</label>
-                        <div class="input-group col-md-12">
-                        	<input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el Precio Telefono..." >
-                        </div>
-                    </div>
-                    
-                    <div class="form-group col-md-6">
-                    	<label for="nrodocumento" class="control-label" style="text-align:left">NroDocumento</label>
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control" id="nrodocumento" name="nrodocumento" placeholder="Ingrese el NroDocumento..." >
-                        </div>
-                    </div>
-
-					<div class="form-group col-md-6">
-                    	<label for="cuit" class="control-label" style="text-align:left">Cuit</label>
-                        <div class="input-group col-md-12">
-                            <input type="text" class="form-control" id="cuit" name="cuit" placeholder="Ingrese el Cuit..." >
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="form-group col-md-6">
-                    	<label for="reftipocliente" class="control-label" style="text-align:left">Tipo Cliente</label>
-                        <div class="input-group col-md-12">
-                            <select name="reftipocliente" id="reftipocliente" class="form-control">
-                            	<?php while ($row = mysql_fetch_array($resTC)) { ?>
-                                	<option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-                                <? } ?>
-                            </select>
-                        </div>
-                    </div>
-                    
-
-                    </div>
-                    </div>
-                    <ul class="list-inline" style="padding-top:15px;">
-                    	<li>
-                    		<button type="button" class="btn btn-primary" id="cargar" style="margin-left:0px;">Crear</button>
-                        </li>
-                        
-   
-                    </ul>
-                    <div id="load">
-                    
-                    </div>
-                    <div id="error" class="alert alert-info">
-                		<p><strong>Importante!:</strong> El campo nombre es obligatorios</p>
-                	</div>
-                    <input type="hidden" id="accion" name="accion" value="insertarCliente"/>
-                </form>
-                
-                <br>
-                
-                
-        </div>
-    </div>
-
     
-    <div class="panel panel-default" style="width:900px;" align="left">
+    <div class="panel panel-danger" style="width:900px;" align="left">
 		<div class="panel-heading">
-			<h3 class="panel-title">Ultimos clientes cargados</h3>
+			<h3 class="panel-title">Facturación de Proveedores</h3>
 		</div>
 			<div class="panel-body">
         	<table class="table table-striped">
             	<thead>
                 	<tr>
-                    	<th>Nombre</th>
-                        <th>NroCliente</th>
-                        <th>E-Mail</th>
-                        <th>NroDocumento</th>
-                        <th>Telefono</th>
-                        <th>Cuit</th>
-                        <th>Acciones</th>
+                    	<th>NroFactura</th>
+                        <th>Fecha</th>
+                        <th>Mes</th>
+                        <th>Proveedor</th>
+                        <th>Base Imponible</th>
+                        <th>Tipo</th>
+                        <th>Monto Imp.</th>
+                        <th>Total Fact.</th>
                     </tr>
                 </thead>
                 <tbody>
 <!--idcliente,nombre,nrocliente,email,telefono,nrodocumento-->
                 	<?php
-						if (mysql_num_rows($resClientes)>0) {
+							$totalBase = 0;
+							$totalImp = 0;
+							$totalFac = 0;
+						if (mysql_num_rows($resFacturas)>0) {
 							$cant = 0;
-							while ($row = mysql_fetch_array($resClientes)) {
-
+							
+							while ($row = mysql_fetch_array($resFacturas)) {
+							$totalBase = $totalBase + $row['Importe21'];
+							$totalImp = $totalImp + $row['Importe21']*0.21;
+							$totalFac = $totalFac + $row['importe'];
 					?>
                     	<tr>
-                        	<td><?php echo utf8_encode($row['nombre']); ?></td>
-                            <td><?php echo $row['nrocliente']; ?></td>
-                            <td><?php echo $row['email']; ?></td>
-                            <td><?php echo $row['nrodocumento']; ?></td>
-                            <td><?php echo $row['telefono']; ?></td>
-                            <td><?php echo $row['cuit']; ?></td>
-                            <td>
-                            		<div class="btn-group">
-										<button class="btn btn-success" type="button">Acciones</button>
-										
-										<button class="btn btn-success dropdown-toggle" data-toggle="dropdown" type="button">
-										<span class="caret"></span>
-										<span class="sr-only">Toggle Dropdown</span>
-										</button>
-										
-										<ul class="dropdown-menu" role="menu">
-											<li>
-											<a href="javascript:void(0)" class="varmodificar" id="<?php echo $row['idcliente']; ?>">Modificar</a>
-											</li>
-
-											<li>
-											<a href="javascript:void(0)" class="varborrar" id="<?php echo $row['idcliente']; ?>">Borrar</a>
-											</li>
-
-										</ul>
-									</div>
-                             </td>
+                        	<td><?php echo utf8_encode($row['nrofactura']); ?></td>
+                            <td><?php echo $row['fechacreacion']; ?></td>
+                            <td><?php echo $row['mes']; ?></td>
+                            <td><?php echo $row['nombre']; ?></td>
+                            <td><?php echo '$ '.number_format($row['Importe21'], 2, ',', ' '); ?></td>
+                            <td>21%</td>
+                            <td><?php echo '$ '.number_format($row['Importe21']*0.21, 2, ',', ' '); ?></td>
+                            <td><?php echo '$'.number_format($row['importe'], 2, ',', ' '); ?></td>
                         </tr>
                     <?php } ?>
+                    	
                     <?php } else { ?>
-                    	<h3>No hay clientes cargados.</h3>
+                    	<h3>No hay facturas cargadas cargados.</h3>
                     <?php } ?>
                 </tbody>
+                <tfoot>
+                	<tr style="background-color: #999; font-weight:bold;">
+                    	<td colspan="4" align="right">Totales</td>
+                        <td><?php echo '$ '.number_format($totalBase, 2, ',', ' '); ?></td>
+                        <td>0</td>
+                        <td><?php echo '$ '.number_format($totalImp, 2, ',', ' '); ?></td>
+                        <td><?php echo '$ '.number_format($totalFac, 2, ',', ' '); ?></td>
+                    </tr>
+                </tfoot>
             </table>
             <div style="height:50px;">
             
@@ -545,10 +448,10 @@ $(document).ready(function(){
 		$(location).attr('href',url);
 
 	})
-				
-	$('#verfacturasproveedores').live("click",function(){
+	
+	$('#crearcliente').live("click",function(){
 
-		url = "../verfacturasproveedores/";
+		url = "../crearcliente/";
 		$(location).attr('href',url);
 
 	})

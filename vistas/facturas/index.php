@@ -242,7 +242,9 @@ $resClientes = $serviciosClientes->traerClientesNoProveedores();
 <h3>Crear Factura</h3>
 <h5>Usuario: <strong>Diego</strong></h5>
 
-<button id="verfacturas" class="btn btn-primary" type="button">Ver Facturas <span class="badge"> <?php echo $resCant; ?></span></button>
+
+<button id="verfacturasventas" class="btn btn-success" type="button">Ver Facturas Ventas</button>
+<button id="verfacturasproveedores" class="btn btn-danger" type="button">Ver Facturas Proveedores</button>
 <button id="crearfactura" class="btn btn-danger" type="button">Crear Facturas Proveedores</button>
 <button id="crearcliente" class="btn btn-success" type="button">Crear Clientes <span class="badge"> <?php echo $resCantC; ?></span></button>
 <button id="crearproveedor" class="btn btn-danger" type="button">Crear Proveedor <span class="badge"> <?php echo $resCantP; ?></span></button>
@@ -397,12 +399,20 @@ $resClientes = $serviciosClientes->traerClientesNoProveedores();
 				})
 				
 				
-				$('#verfacturas').live("click",function(){
+				$('#verfacturasventas').live("click",function(){
 
-				  	url = "../verfacturas/";
+				  	url = "../verfacturasventas/";
 					$(location).attr('href',url);
 
 				})
+				
+				$('#verfacturasproveedores').live("click",function(){
+
+				  	url = "../verfacturasproveedores/";
+					$(location).attr('href',url);
+
+				})
+				
 				
 				$('#crearfactura').live("click",function(){
 
