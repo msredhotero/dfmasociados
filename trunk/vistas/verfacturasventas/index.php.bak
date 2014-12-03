@@ -474,9 +474,9 @@ $(document).ready(function(){
 	})
 	
 	
-	$('#verfacturasproveedores').live("click",function(){
+	$('#verfacturasventas').live("click",function(){
 
-		url = "../verfacturasproveedores/";
+		url = "../verfacturasventas/";
 		$(location).attr('href',url);
 
 	})
